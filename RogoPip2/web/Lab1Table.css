@@ -1,0 +1,58 @@
+
+ B {
+	 color: green;
+}
+
+ TABLE {
+    background: silver; 
+    color: black; 
+	border: 1;
+	 border-spacing: 10px;
+    border-collapse: separate;
+	width: 100%;
+   }
+   
+   TD {
+    background: inherit; 
+	color: inherit;
+	padding: 10px;
+   }
+
+ TD.area {
+     background: beige;
+     color: black;
+     padding: 10px;
+ }
+   
+   TH {
+	   text-decoration: underline;
+	   color:gainsboro;
+	   padding: 5px;
+   }
+   
+   TH.hat { 
+   color: darkBlue;
+   font-size: 120%;
+   font: serif;
+   }
+   
+   TH.hat::first-letter {
+	   color: black;
+	   font-size: 125%;
+   }
+   
+   TH.subHat {
+   color: white;
+   font-size: 110%;
+   font: arial;
+   }
+   
+   TH.subHat::first-letter {
+	   color: maroon;
+	   font-size: 115%;
+   }
+   
+   TR {
+	   background: LightSlateGray;
+   }
+   
