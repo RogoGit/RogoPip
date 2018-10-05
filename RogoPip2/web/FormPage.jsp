@@ -22,9 +22,9 @@
            var canvDraw = canv.getContext("2d");
          // var can2 = document.getElementById("can2");
          // var ctx = can2.getContext("2d");
-           var backGround = new Image();
-           backGround.src = 'Coordinates.png';
-               canvDraw.drawImage(backGround, 0, 0);
+          // var backGround = new Image();
+                         //  backGround.src = 'Coordinates.png';
+           //    canvDraw.drawImage(backGround, 0, 0);
            /*ctx.drawImage(canv,0,0);
            canvDraw.clearRect(0,0,canv.width,canv.height);
            canvDraw.drawImage(backGround,0,0);
@@ -246,7 +246,7 @@
         </td>
         <td width="55%" class = "area"> <center>
           <!--  <canvas id="can2" width="400" height="400"> </canvas> -->
-            <canvas id="CheckArea" width="400" height="400"> </canvas>
+            <canvas style="background: url(Coordinates.png) no-repeat center center;" id="CheckArea" width="400" height="400"> </canvas>
         </center></td>
     </tr>
 </table>
