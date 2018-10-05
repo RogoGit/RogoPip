@@ -16,7 +16,7 @@
         }
         //var canv = document.getElementById("CheckArea");
        // var canvDraw = canv.getContext("2d");
-
+        var rad = 0;
       window.onload = function() {
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
@@ -30,8 +30,29 @@
            canvDraw.drawImage(backGround,0,0);
            canvDraw.drawImage(can2,0,0); */
           drawArea();
-
-       }
+          canv.addEventListener('click', function listener(evt) {
+              var mousePos = getMousePos(canv, evt);
+              var color;
+              //var value = [];
+              if (ifInside(mousePos.x,mousePos.y)) {
+                  canvDraw.beginPath();
+                  canvDraw.moveTo(mousePos.x,mousePos.y);
+                  canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
+                  canvDraw.fillStyle = 'green';
+                  canvDraw.fill();
+                  color = 'green';
+              } else
+              {
+                  canvDraw.beginPath();
+                  canvDraw.moveTo(mousePos.x,mousePos.y);
+                  canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
+                  canvDraw.fillStyle = 'red';
+                  canvDraw.fill();
+                  color = 'red';
+              }
+              var value = [mousePos.x,mousePos.y,2,0,2*Math.PI,false,color];
+              areaRads[rad-1].push(value);},true);
+       };
 
 
 
@@ -39,7 +60,7 @@
        function drawArea() {
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
-           var rad = document.getElementById("AreaRad").value;
+           rad = document.getElementById("AreaRad").value;
            canvDraw.clearRect(0,0,canv.width,canv.height);
            var backGround = new Image();
            backGround.src = 'Coordinates.png';
@@ -72,28 +93,7 @@
                 canvDraw.fillStyle = areaRads[rad-1][l][6];
                 canvDraw.fill(); }
             }
-           canv.addEventListener('click', function listener(evt) {
-               var mousePos = getMousePos(canv, evt);
-           var color;
-           //var value = [];
-           if (ifInside(mousePos.x,mousePos.y)) {
-               canvDraw.beginPath();
-               canvDraw.moveTo(mousePos.x,mousePos.y);
-               canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
-               canvDraw.fillStyle = 'green';
-               canvDraw.fill();
-               color = 'green';
-           } else
-           {
-               canvDraw.beginPath();
-               canvDraw.moveTo(mousePos.x,mousePos.y);
-               canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
-               canvDraw.fillStyle = 'red';
-               canvDraw.fill();
-               color = 'red';
-           }
-           var value = [mousePos.x,mousePos.y,2,0,2*Math.PI,false,color];
-           areaRads[rad-1].push(value);},true);
+
 
 
        }
