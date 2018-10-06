@@ -55,8 +55,6 @@
        };
 
 
-
-
        function drawArea() {
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
@@ -67,19 +65,19 @@
            canvDraw.drawImage(backGround, 0, 0);
            canvDraw.beginPath();
            canvDraw.moveTo(200,200);
-           canvDraw.arc(200,200,rad*40,0,1.5*Math.PI,true);
+           canvDraw.arc(200,200,rad*20,0,0.5*Math.PI,false);
            canvDraw.lineTo(200,200);
            canvDraw.fillStyle = 'LightBlue';
            canvDraw.fill();
            canvDraw.stroke();
            canvDraw.beginPath();
-           canvDraw.rect(200-rad*40,200-rad*40,200-(200-rad*40),200-(200-rad*40));
+           canvDraw.rect(200-rad*40,200,200-(200-rad*40),200-(200-rad*20));
            canvDraw.fillStyle = 'LightBlue';
            canvDraw.fill();
            canvDraw.stroke();
            canvDraw.beginPath();
            canvDraw.moveTo(200,200);
-           canvDraw.lineTo(200,200+rad*40);
+           canvDraw.lineTo(200,200-rad*40);
            canvDraw.lineTo(200+rad*20,200);
            canvDraw.closePath();
            canvDraw.fillStyle = 'LightBlue';
@@ -131,7 +129,9 @@
 
        function ifInside(x,y) {
            var rad = document.getElementById("AreaRad").value;
-           if ((((x-200)^2) + ((y-200)^2)) <= ((rad*40)^2)) {return true;}
+           if ((x>=200) && (y>=200) && ((Math.pow((x-200),2) + Math.pow((y-200),2)) <= Math.pow((rad*20),2))) {return true;}
+           if ((x>=200) && (y<=200) && ((200-(200+(y-200)))<=((-2)*(x-200)+rad*40))) {return true;}
+           if ((x<=200) && (y>=200) && (x>=(200-(rad*40))) && (y<=(200+(rad*20)))) {return true;}
            return false;
        }
 
@@ -163,7 +163,7 @@
             x = document.getElementById("enter").value;
             x = x.replace(',','.');
             if (isNaN(x) || (x=='')) {
-                text = "Ошибка! Координата Y - не число";
+                text = "Ошибка! Координата X - не число";
                 er.classList.remove("hidden");
                 document.getElementById("errors").innerHTML = text;
                 e.preventDefault();
@@ -171,7 +171,7 @@
 
             } else {
                 if(x < -5 || x > 3) {
-                    text = " Ошибка! Координата Y должна быть от -5 до 3";
+                    text = " Ошибка! Координата X должна быть от -5 до 3";
                     er.classList.remove("hidden");
                     document.getElementById("errors").innerHTML = text;
                     e.preventDefault();
@@ -201,7 +201,7 @@
 <body>
 <table>
     <tr>
-        <th colspan=2 class="hat">Рогаленко Н.А, Р3202, вар 18214</th>
+        <th colspan=2 class="hat">Лабораторная №2, Рогаленко Н.А, Р3202, вар 20201</th>
     </tr>
     <tr>
         <th width="45%" class="subHat">Выбор параметров</th>
@@ -209,7 +209,7 @@
     </tr>
     <tr>
         <td width="45%">
-            <form action="" method="POST"  name ="checker" id="checkForm">
+            <form action="checkServ" method="POST"  name ="checker" id="checkForm">
                 Выберите R: <select name="radius" id = "AreaRad" onchange="drawArea()">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -217,18 +217,20 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select> <br/>
-                <br/>Выберите Х: <br/>
-                <input type="radio" name="koordX" value="-4">-4
-                <input type="radio" name="koordX" value="-3">-3
-                <input type="radio" name="koordX" value="-2">-2
-                <input type="radio" name="koordX" value="-1">-1 <br/>
-                <input type="radio" name="koordX" value="0" checked > 0  <br/>
-                <input type="radio" name="koordX" value="1">1
-                <input type="radio" name="koordX" value="2">2
-                <input type="radio" name="koordX" value="3">3
-                <input type="radio" name="koordX" value="4">4 <br/>
-                <br/> Введите Y: <div class="tooltip">
-                <input type="text" id="enter" name="koordY" style="width:170px;">
+                <br/>Выберите Y: <select name="koordY">
+                <option value="-4">-4</option>
+                <option value="-3">-3</option>
+                <option value="-2">-2</option>
+                <option value="-1">-1</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+                <br/>
+                <br/> Введите X: <div class="tooltip">
+                <input type="text" id="enter" name="koordX" style="width:170px;">
                 <span class="tooltiptext">Введите число от -5 до 3</span>
             </div>
                 <br/><br/>
@@ -252,13 +254,11 @@
 </table>
 <br/>
 <center> <h1> <b> Результаты проверки </b> </h1> </center> <br/>
-
-<table border="1" id="results" >
+<center>
+<table border="1" id="results" width="80%">
       <tr>
                 <th colspan="3" width="40%"> Полученные данные </th>
                 <th rowspan="2" width="20%"> Результат </th>
-          <th rowspan="2" width = "20%"> Серверное время </th>
-          <th rowspan="2" width = "20%"> Время работы скрипта (сек.) </th>
     </tr>
     <tr>
         <th> Координата Х  </th>
@@ -266,6 +266,6 @@
         <th>  Радиус  </th>
     </tr>
 </table>
-
+</center>
 </body>
 </html>

@@ -11,8 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  должна о
-  русь
+
    $END$
   </body>
 </html>
