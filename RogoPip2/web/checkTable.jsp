@@ -1,4 +1,9 @@
-<body>
-KKKKK
-${X}
-</body>
+<script>
+
+</script>
+<tr>
+    <td> ${X} </td>
+    <td> ${Y} </td>
+    <td> ${RAD} </td>
+    <td> ${RESULT} </td>
+</tr>

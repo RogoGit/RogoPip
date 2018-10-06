@@ -178,8 +178,19 @@
                     return false;
                 } else {
                     text = "Данные верны";
+
                     er.classList.add("hidden");
                     document.getElementById("errors").innerHTML = text;
+                    e.preventDefault();
+                    const formData = new FormData(document.querySelector('#checkForm'));
+                    fetch('AreaCheckServlet.java', {
+                        method: 'POST',
+                        body: formData
+                    }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
+                    //   return true;
+
+                    //         /er.classList.add("hidden");
+                    //          / document.getElementById("errors").innerHTML = text;
                     //  e.preventDefault();
                     return true; }
             }
@@ -193,6 +204,12 @@
             canvDraw.fill();*/
      //   }
 //document.getElementById('AreaRad').setAttribute('onchange','drawArea()');
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('check').addEventListener('click', submit);
+        });
+
 
 
     </script>
@@ -209,7 +226,7 @@
     </tr>
     <tr>
         <td width="45%">
-            <form action="checkServ" method="POST"  name ="checker" id="checkForm">
+            <form action="/checkServ" method="POST"  name ="checker" id="checkForm">
                 Выберите R: <select name="radius" id = "AreaRad" onchange="drawArea()">
                 <option value="1">1</option>
                 <option value="2">2</option>

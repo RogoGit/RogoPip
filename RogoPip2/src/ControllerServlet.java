@@ -15,7 +15,7 @@ public class ControllerServlet extends HttpServlet {
             if (query == null) {
                 response.sendRedirect("FormPage.jsp");
             } else {
-                response.sendRedirect("AreaCheckServlet.java" + query);
+                response.sendRedirect("AreaCheckServlet.java");
             }
          /*   response.setContentType("text/html");
             PrintWriter pw=response.getWriter();
@@ -28,7 +28,7 @@ public class ControllerServlet extends HttpServlet {
         if (query == null) {
             response.sendRedirect("FormPage.jsp");
         } else {
-            response.sendRedirect("AreaCheckServlet.java" + query);
+            response.sendRedirect("AreaCheckServlet.java");
         }
 
     }
