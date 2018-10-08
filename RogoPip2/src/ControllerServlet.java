@@ -1,4 +1,7 @@
+import sun.misc.IOUtils;
+
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,11 +36,21 @@ public class ControllerServlet extends HttpServlet {
         }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-      //  String query = request.getQueryString();
+            String query = request.getQueryString();
      //   if (query == null) {
        //     response.sendRedirect("FormPage.jsp");
        // } else {
-            response.sendRedirect("AreaCheckServlet.java");
+        response.setContentType("text/html;charset=UTF-8");
+      //  ServletInputStream data = (request.getInputStream());
+       // String par = data.toString();
+        String kx=request.getParameter("koordX");
+        request.setAttribute("X",kx);
+        String ky=request.getParameter("koordY");
+        request.setAttribute("Y",ky);
+        String rad=request.getParameter("radius");
+        request.setAttribute("RAD",rad);
+       request.getRequestDispatcher("/checkServ").forward(request, response);
+          //  response.sendRedirect("AreaCheckServlet.java");
        // }
 
     }

@@ -27,19 +27,19 @@ public class AreaCheckServlet extends HttpServlet {
         request.setAttribute("Y",ky);
         String rad=request.getParameter("radius");
         request.setAttribute("RAD",rad);
+        String res = AreaCheckServlet.CheckArea(Double.parseDouble(kx), Double.parseDouble(ky), Double.parseDouble(rad));
+        request.setAttribute("RESULT", res);
 
-        request.setAttribute("RESULT", AreaCheckServlet.CheckArea(Double.parseDouble(kx), Double.parseDouble(ky), Double.parseDouble(rad)));
-
-     //   request.getRequestDispatcher("checkTable.jsp").forward(request, response);
+         request.getRequestDispatcher("checkTable.jsp").forward(request, response);
        // String pr=request.getParameter("koordX");
 
-       PrintWriter res = response.getWriter();
+   /*  PrintWriter res = response.getWriter();
        res.println("<tr>");
         res.println("<td> " + kx  + " </td>");
         res.println("<td> " + ky  + " </td>");
         res.println("<td> " + rad  + " </td>");
         res.println("<td> " + AreaCheckServlet.CheckArea(Double.parseDouble(kx), Double.parseDouble(ky), Double.parseDouble(rad)) + " </td>");
-        res.println("</tr>");
+        res.println("</tr>"); */
 
     }
 

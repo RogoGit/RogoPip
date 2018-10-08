@@ -1,6 +1,3 @@
-<script>
-
-</script>
 <tr>
     <td> ${X} </td>
     <td> ${Y} </td>

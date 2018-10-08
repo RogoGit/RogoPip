@@ -182,10 +182,18 @@
                     er.classList.add("hidden");
                     document.getElementById("errors").innerHTML = text;
                     e.preventDefault();
-                    const formData = new FormData(document.querySelector('#checkForm'));
-                    fetch('AreaCheckServlet.java', {
+                    const formData = new FormData(document.querySelector('#checkForm'))
+                    const params = new URLSearchParams();
+                    for(const pair of formData.entries()){
+                        params.append(pair[0], pair[1]);
+                    }
+                   // return params.toString();
+                    fetch('', {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        },
+                        body: params.toString()
                     }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
                     //   return true;
 
@@ -226,7 +234,7 @@
     </tr>
     <tr>
         <td width="45%">
-            <form action="/checkServ" method="POST"  name ="checker" id="checkForm">
+            <form action="" method="POST"  name ="checker" id="checkForm">
                 Выберите R: <select name="radius" id = "AreaRad" onchange="drawArea()">
                 <option value="1">1</option>
                 <option value="2">2</option>
