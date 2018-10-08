@@ -17,9 +17,10 @@
         //var canv = document.getElementById("CheckArea");
        // var canvDraw = canv.getContext("2d");
         var rad = 0;
-      window.onload = function() {
+      window.onload = function(e) {
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
+        // canv.addEventListener('click', getCoord());
          // var can2 = document.getElementById("can2");
          // var ctx = can2.getContext("2d");
           // var backGround = new Image();
@@ -51,7 +52,26 @@
                   color = 'red';
               }
               var value = [mousePos.x,mousePos.y,2,0,2*Math.PI,false,color];
-              areaRads[rad-1].push(value);},true);
+              areaRads[rad-1].push(value);
+              document.getElementById("kXarea").value = (mousePos.x-200)/40;
+                 document.getElementById("kYarea").value = -(mousePos.y-200)/40;
+                document.getElementById("radArea").value = rad;
+              // document.getElementById("checker2").submit();
+              e.preventDefault();
+              const formData = new FormData(document.querySelector('#checker2'))
+              const params = new URLSearchParams();
+              for(const pair of formData.entries()){
+                  params.append(pair[0], pair[1]);
+              }
+              // return params.toString();
+              fetch('', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                  },
+                  body: params.toString()
+              }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
+              },true);
        };
 
 
@@ -95,6 +115,14 @@
 
 
        }
+
+   //    function getCoord() {
+     //      var mousePos = getMousePos(canv, evt);
+       //    document.getElementById("kXarea").value = mousePos.x;
+        //   document.getElementById("kYarea").value = mousePos.y;
+         //  document.getElementById("mytext").value = rad;
+          // document.getElementById("checker2").submit();
+       //}
 
        function cl() {
            var rad = document.getElementById("AreaRad").value;
@@ -273,7 +301,12 @@
         </td>
         <td width="55%" class = "area"> <center>
           <!--  <canvas id="can2" width="400" height="400"> </canvas> -->
+            <form action="" method="POST"  id ="checker2">
             <canvas style="background: url(Coordinates.png) no-repeat center center;" id="CheckArea" width="400" height="400"> </canvas>
+               <input type = "hidden" name = "koordX" id="kXarea"/>
+               <input type = "hidden" name = "koordY" id="kYarea"/>
+               <input type = "hidden" name = "radius" id="radArea"/>
+           </form>
         </center></td>
     </tr>
 </table>
