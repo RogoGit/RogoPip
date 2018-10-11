@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -323,6 +324,16 @@
         <th> Координата Y   </th>
         <th>  Радиус  </th>
     </tr>
+    <%
+        ServletContext sc = request.getServletContext();
+        ArrayList<String> tabStr = (ArrayList<String>) sc.getAttribute("chTable");
+        if (tabStr!=null) {
+            for (int i=0; i<tabStr.size();i++) {
+                String outS = tabStr.get(i); %>
+                      <%= outS %>
+           <% }
+        }
+    %>
 </table>
 </center>
 </body>

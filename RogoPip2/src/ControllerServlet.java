@@ -1,5 +1,7 @@
 import sun.misc.IOUtils;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
@@ -8,9 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 @WebServlet("/")
 public class ControllerServlet extends HttpServlet {
+
+    public void init( ServletConfig config ) throws ServletException
+    {
+        super.init(config);
+        ArrayList<String> checkings = new ArrayList<>();
+        getServletContext().setAttribute( "chTable", checkings );
+    }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
         {
             String query = request.getRequestURI();
@@ -33,6 +44,9 @@ public class ControllerServlet extends HttpServlet {
                 response.setContentType("text/html;charset=UTF-8");
                 request.getRequestDispatcher("FormPage.jsp").forward(request, response);
             }
+
+            ServletContext servCon = getServletContext();
+
         }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
