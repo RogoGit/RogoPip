@@ -21,6 +21,27 @@
       window.onload = function(e) {
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
+
+          <%--
+      ServletContext sc = request.getServletContext();
+      ArrayList<double[][][]> dotStr = (ArrayList<double[][][]>) sc.getAttribute("chDots");
+      if (dotStr!=null) {
+          for (int i=0; i<dotStr.size();i++) {
+            for (int j=0; j<dotStr.get(i).length; j++) {%> */
+      /*   if (dotStr.get(i)[rad-1].length!==0) {    //-1
+              for (l=0; l<dotStr[rad-1].length; l++) { //-1 */
+       /*           canvDraw.beginPath();
+                  canvDraw.moveTo(dotStr[rad-1][l][0],dotStr[rad-1][l][1]);
+                  canvDraw.arc(dotStr[rad-1][l][0],dotStr[rad-1][l][1],dotStr[rad-1][l][2],dotStr[rad-1][l][3],dotStr[rad-1][l][4],dotStr[rad-1][l][5]);
+                  canvDraw.fillStyle = dotStr[rad-1][l][6];
+                  canvDraw.fill(); } */
+
+          <%}
+          }
+          }
+
+   --%>
+
         // canv.addEventListener('click', getCoord());
          // var can2 = document.getElementById("can2");
          // var ctx = can2.getContext("2d");
@@ -329,9 +350,36 @@
         ArrayList<String> tabStr = (ArrayList<String>) sc.getAttribute("chTable");
         if (tabStr!=null) {
             for (int i=0; i<tabStr.size();i++) {
-                String outS = tabStr.get(i); %>
+                String outS = tabStr.get(i);
+                String[] pr = outS.split(" ");%>
                       <%= outS %>
-           <% }
+                 <script>
+                     var color;
+                     var canv = document.getElementById("CheckArea");
+                     var canvDraw = canv.getContext("2d");
+                     //var value = [];
+                     if (ifInside(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>)) {
+                         canvDraw.beginPath();
+                         canvDraw.moveTo(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>);
+                         canvDraw.arc(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false);
+                         canvDraw.fillStyle = 'green';
+                         canvDraw.fill();
+                         color = 'green';
+                     } else
+                     {
+                         canvDraw.beginPath();
+                         canvDraw.moveTo(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>);
+                         canvDraw.arc(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false);
+                         canvDraw.fillStyle = 'red';
+                         canvDraw.fill();
+                         color = 'red';
+                     }
+                     var value = [<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false,color];
+                     areaRads[<%=pr[5]%>-1].push(value);
+                     drawArea();
+                 </script>
+           <%
+            }
         }
     %>
 </table>

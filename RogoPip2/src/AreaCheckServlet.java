@@ -36,7 +36,7 @@ public class AreaCheckServlet extends HttpServlet {
 
         ServletContext servletContext = getServletContext();
         ArrayList<String> newTr = (ArrayList<String>) servletContext.getAttribute("chTable");
-        newTr.add("<tr><td>" + kx + "</td><td>" + ky + "</td><td>" + rad + "</td><td>" + res + "</td></tr>");
+        newTr.add("<tr><td> " + kx + " </td><td> " + ky + " </td><td> " + rad + " </td><td> " + res + " </td></tr>");
 
          request.getRequestDispatcher("checkTable.jsp").forward(request, response);
        // String pr=request.getParameter("koordX");

@@ -19,7 +19,9 @@ public class ControllerServlet extends HttpServlet {
     {
         super.init(config);
         ArrayList<String> checkings = new ArrayList<>();
+     //   ArrayList<double[][][]> dots = new ArrayList<>();
         getServletContext().setAttribute( "chTable", checkings );
+    //    getServletContext().setAttribute( "chDots", dots );
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
@@ -44,8 +46,6 @@ public class ControllerServlet extends HttpServlet {
                 response.setContentType("text/html;charset=UTF-8");
                 request.getRequestDispatcher("FormPage.jsp").forward(request, response);
             }
-
-            ServletContext servCon = getServletContext();
 
         }
 
