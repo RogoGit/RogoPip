@@ -1,9 +1,6 @@
-import sun.misc.IOUtils;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +16,7 @@ public class ControllerServlet extends HttpServlet {
     {
         super.init(config);
         ArrayList<String> checkings = new ArrayList<>();
-     //   ArrayList<double[][][]> dots = new ArrayList<>();
         getServletContext().setAttribute( "chTable", checkings );
-    //    getServletContext().setAttribute( "chDots", dots );
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
@@ -50,13 +45,8 @@ public class ControllerServlet extends HttpServlet {
         }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-            String query = request.getQueryString();
-     //   if (query == null) {
-       //     response.sendRedirect("FormPage.jsp");
-       // } else {
+
         response.setContentType("text/html;charset=UTF-8");
-      //  ServletInputStream data = (request.getInputStream());
-       // String par = data.toString();
         String kx=request.getParameter("koordX");
         request.setAttribute("X",kx);
         String ky=request.getParameter("koordY");
@@ -64,8 +54,6 @@ public class ControllerServlet extends HttpServlet {
         String rad=request.getParameter("radius");
         request.setAttribute("RAD",rad);
        request.getRequestDispatcher("/checkServ").forward(request, response);
-          //  response.sendRedirect("AreaCheckServlet.java");
-       // }
 
     }
 

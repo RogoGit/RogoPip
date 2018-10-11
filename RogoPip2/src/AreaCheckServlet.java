@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static java.lang.Math.pow;
@@ -39,15 +37,6 @@ public class AreaCheckServlet extends HttpServlet {
         newTr.add("<tr><td> " + kx + " </td><td> " + ky + " </td><td> " + rad + " </td><td> " + res + " </td></tr>");
 
          request.getRequestDispatcher("checkTable.jsp").forward(request, response);
-       // String pr=request.getParameter("koordX");
-
-   /*  PrintWriter res = response.getWriter();
-       res.println("<tr>");
-        res.println("<td> " + kx  + " </td>");
-        res.println("<td> " + ky  + " </td>");
-        res.println("<td> " + rad  + " </td>");
-        res.println("<td> " + AreaCheckServlet.CheckArea(Double.parseDouble(kx), Double.parseDouble(ky), Double.parseDouble(rad)) + " </td>");
-        res.println("</tr>"); */
 
     }
 

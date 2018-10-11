@@ -9,49 +9,16 @@
 
     <script type="text/javascript">
 
-        //var areaRads = [];
-        //areaRads[0] = [1,2,3,4,5];
         var areaRads = [1,2,3,4,5];
         for (k=0; k<5; k++) {
            areaRads[k] = [];
         }
-        //var canv = document.getElementById("CheckArea");
-       // var canvDraw = canv.getContext("2d");
+
         var rad = 0;
       window.onload = function(e) {
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
 
-          <%--
-      ServletContext sc = request.getServletContext();
-      ArrayList<double[][][]> dotStr = (ArrayList<double[][][]>) sc.getAttribute("chDots");
-      if (dotStr!=null) {
-          for (int i=0; i<dotStr.size();i++) {
-            for (int j=0; j<dotStr.get(i).length; j++) {%> */
-      /*   if (dotStr.get(i)[rad-1].length!==0) {    //-1
-              for (l=0; l<dotStr[rad-1].length; l++) { //-1 */
-       /*           canvDraw.beginPath();
-                  canvDraw.moveTo(dotStr[rad-1][l][0],dotStr[rad-1][l][1]);
-                  canvDraw.arc(dotStr[rad-1][l][0],dotStr[rad-1][l][1],dotStr[rad-1][l][2],dotStr[rad-1][l][3],dotStr[rad-1][l][4],dotStr[rad-1][l][5]);
-                  canvDraw.fillStyle = dotStr[rad-1][l][6];
-                  canvDraw.fill(); } */
-
-          <%}
-          }
-          }
-
-   --%>
-
-        // canv.addEventListener('click', getCoord());
-         // var can2 = document.getElementById("can2");
-         // var ctx = can2.getContext("2d");
-          // var backGround = new Image();
-                         //  backGround.src = 'Coordinates.png';
-           //    canvDraw.drawImage(backGround, 0, 0);
-           /*ctx.drawImage(canv,0,0);
-           canvDraw.clearRect(0,0,canv.width,canv.height);
-           canvDraw.drawImage(backGround,0,0);
-           canvDraw.drawImage(can2,0,0); */
           drawArea();
           canv.addEventListener('click', function listener(evt) {
               var mousePos = getMousePos(canv, evt);
@@ -78,14 +45,12 @@
               document.getElementById("kXarea").value = (mousePos.x-200)/40;
                  document.getElementById("kYarea").value = -(mousePos.y-200)/40;
                 document.getElementById("radArea").value = rad;
-              // document.getElementById("checker2").submit();
               e.preventDefault();
               const formData = new FormData(document.querySelector('#checker2'))
               const params = new URLSearchParams();
               for(const pair of formData.entries()){
                   params.append(pair[0], pair[1]);
               }
-              // return params.toString();
               fetch('', {
                   method: 'POST',
                   headers: {
@@ -134,34 +99,16 @@
                 canvDraw.fill(); }
             }
 
-
-
        }
 
-   //    function getCoord() {
-     //      var mousePos = getMousePos(canv, evt);
-       //    document.getElementById("kXarea").value = mousePos.x;
-        //   document.getElementById("kYarea").value = mousePos.y;
-         //  document.getElementById("mytext").value = rad;
-          // document.getElementById("checker2").submit();
-       //}
 
        function cl() {
            var rad = document.getElementById("AreaRad").value;
            areaRads[rad-1].length=0; //-1
-          // areaRads[0][rad].slice(0);
            drawArea();
-          // for (i=0; i<areaRads[rad].length; i++) {
-            //   areaRads[rad][i] = (0,0,0,0,0,false);
-          // }
        }
 
      function clearAll() {
-          //for (j=0; j<4; j++) {
-             // for (i = 0; i < areaRads[rad].length; i++) {
-               //   areaRads[j][i] = (0, 0, 0, 0, 0, false);
-              //}
-          //}
         for (r=0; r<areaRads.length; r++) {
              areaRads[r].length=0;
          }
@@ -185,30 +132,10 @@
            return false;
        }
 
-        /*canv.addEventListener('click', function(evt) {
-            var mousePos = getMousePos(canv, evt);
-            if (ifInside(mousePos.x,mousePos.y)) {
-              canvDraw.beginPath();
-              canvDraw.moveTo(mousePos.x,mousePos.y);
-              canvDraw.arc(mousePos.x,mousePos.y,1,0,2*Math.PI,false);
-              canvDraw.fillStyle = 'green';
-              canvDraw.fill();
-            } else
-            {
-                canvDraw.beginPath();
-                canvDraw.moveTo(mousePos.x,mousePos.y);
-                canvDraw.arc(mousePos.x,mousePos.y,1,0,2*Math.PI,false);
-                canvDraw.fillStyle = 'red';
-                canvDraw.fill();
-            }
-        },false); */
-      //window.onload = drawArea();
-        //window.onload = drawCoordSyst();
-
-
         function checkValid(e) {
             var x, er, text;
-
+            var canv = document.getElementById("CheckArea");
+            var canvDraw = canv.getContext("2d");
             er = document.getElementById("errors");
             x = document.getElementById("enter").value;
             x = x.replace(',','.');
@@ -227,17 +154,16 @@
                     e.preventDefault();
                     return false;
                 } else {
-                    text = "Данные верны";
 
+                    text = "Данные верны";
                     er.classList.add("hidden");
                     document.getElementById("errors").innerHTML = text;
                     e.preventDefault();
-                    const formData = new FormData(document.querySelector('#checkForm'))
+                    const formData = new FormData(document.querySelector('#checkForm'));
                     const params = new URLSearchParams();
                     for(const pair of formData.entries()){
                         params.append(pair[0], pair[1]);
                     }
-                   // return params.toString();
                     fetch('', {
                         method: 'POST',
                         headers: {
@@ -245,25 +171,33 @@
                         },
                         body: params.toString()
                     }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
-                    //   return true;
 
-                    //         /er.classList.add("hidden");
-                    //          / document.getElementById("errors").innerHTML = text;
-                    //  e.preventDefault();
+
+                    var color2;
+                    var kkx = document.getElementById("enter").value*40+200;
+                    var kky = document.getElementById("kYY").value*(-40)+200;
+                    if (ifInside(kkx,kky)) {
+                        canvDraw.beginPath();
+                        canvDraw.moveTo(kkx,kky);
+                        canvDraw.arc(kkx,kky,2,0,2*Math.PI,false);
+                        canvDraw.fillStyle = 'green';
+                        canvDraw.fill();
+                        color2 = 'green';
+                    } else {
+                        canvDraw.beginPath();
+                        canvDraw.moveTo(kkx,kky);
+                        canvDraw.arc(kkx,kky,2,0,2*Math.PI,false);
+                        canvDraw.fillStyle = 'red';
+                        canvDraw.fill();
+                        color2 = 'red';
+                    }
+                    var value2 = [kkx,kky,2,0,2*Math.PI,false,color2];
+                    areaRads[rad-1].push(value2);
+                    drawArea();
+
                     return true; }
             }
         }
-
-       // function drawCoordSyst() {
-
-           /* canvDraw.beginPath();
-            canvDraw.rect(0,0,400,400);
-            canvDraw.fillStyle = "Coordinates.png";
-            canvDraw.fill();*/
-     //   }
-//document.getElementById('AreaRad').setAttribute('onchange','drawArea()');
-
-
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('check').addEventListener('click', submit);
         });
@@ -292,7 +226,7 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select> <br/>
-                <br/>Выберите Y: <select name="koordY">
+                <br/>Выберите Y: <select name="koordY" id="kYY">
                 <option value="-4">-4</option>
                 <option value="-3">-3</option>
                 <option value="-2">-2</option>
