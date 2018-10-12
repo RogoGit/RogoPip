@@ -24,7 +24,7 @@
               var mousePos = getMousePos(canv, evt);
               var color;
               //var value = [];
-              if (ifInside(mousePos.x,mousePos.y)) {
+              if (ifInside(mousePos.x,mousePos.y,rad)) {
                   canvDraw.beginPath();
                   canvDraw.moveTo(mousePos.x,mousePos.y);
                   canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
@@ -124,11 +124,11 @@
         }
 
 
-       function ifInside(x,y) {
-           var rad = document.getElementById("AreaRad").value;
-           if ((x>=200) && (y>=200) && ((Math.pow((x-200),2) + Math.pow((y-200),2)) <= Math.pow((rad*20),2))) {return true;}
-           if ((x>=200) && (y<=200) && ((200-(200+(y-200)))<=((-2)*(x-200)+rad*40))) {return true;}
-           if ((x<=200) && (y>=200) && (x>=(200-(rad*40))) && (y<=(200+(rad*20)))) {return true;}
+       function ifInside(x,y,nesRad) {
+          // var rad = document.getElementById("AreaRad").value;
+           if ((x>=200) && (y>=200) && ((Math.pow((x-200),2) + Math.pow((y-200),2)) <= Math.pow((nesRad*20),2))) {return true;}
+           if ((x>=200) && (y<=200) && ((200-(200+(y-200)))<=((-2)*(x-200)+nesRad*40))) {return true;}
+           if ((x<=200) && (y>=200) && (x>=(200-(nesRad*40))) && (y<=(200+(nesRad*20)))) {return true;}
            return false;
        }
 
@@ -176,7 +176,7 @@
                     var color2;
                     var kkx = document.getElementById("enter").value*40+200;
                     var kky = document.getElementById("kYY").value*(-40)+200;
-                    if (ifInside(kkx,kky)) {
+                    if (ifInside(kkx,kky,rad)) {
                         canvDraw.beginPath();
                         canvDraw.moveTo(kkx,kky);
                         canvDraw.arc(kkx,kky,2,0,2*Math.PI,false);
@@ -292,7 +292,7 @@
                      var canv = document.getElementById("CheckArea");
                      var canvDraw = canv.getContext("2d");
                      //var value = [];
-                     if (ifInside(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>)) {
+                     if (ifInside(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,<%=pr[5]%>)) {
                          canvDraw.beginPath();
                          canvDraw.moveTo(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>);
                          canvDraw.arc(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false);
