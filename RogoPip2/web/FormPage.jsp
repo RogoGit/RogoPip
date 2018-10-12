@@ -102,18 +102,7 @@
        }
 
 
-       function cl() {
-           var rad = document.getElementById("AreaRad").value;
-           areaRads[rad-1].length=0; //-1
-           drawArea();
-       }
 
-     function clearAll() {
-        for (r=0; r<areaRads.length; r++) {
-             areaRads[r].length=0;
-         }
-         drawArea();
-     }
 
         function getMousePos(canvas, evt) {
             var rect = canvas.getBoundingClientRect();
@@ -280,8 +269,8 @@
         <th>  Радиус  </th>
     </tr>
     <%
-        ServletContext sc = request.getServletContext();
-        ArrayList<String> tabStr = (ArrayList<String>) sc.getAttribute("chTable");
+        ServletContext sct = request.getServletContext();
+        ArrayList<String> tabStr = (ArrayList<String>) sct.getAttribute("chTable");
         if (tabStr!=null) {
             for (int i=0; i<tabStr.size();i++) {
                 String outS = tabStr.get(i);
@@ -316,6 +305,26 @@
             }
         }
     %>
+    <script>
+        function cl() {
+            var rad = document.getElementById("AreaRad").value;
+            areaRads[rad-1].length=0; //-1
+            drawArea();
+        }
+
+        function clearAll() {
+            for (r=0; r<areaRads.length; r++) {
+                areaRads[r].length=0;
+            }
+            drawArea();
+            var tbl = document.getElementById("results");
+            var rowCount = tbl.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                tbl.deleteRow(i);
+            }
+            fetch('clearHistory', { method: 'POST' });
+        }
+    </script>
 </table>
 </center>
 </body>
