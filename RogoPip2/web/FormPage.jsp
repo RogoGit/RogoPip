@@ -228,7 +228,7 @@
             </select>
                 <br/>
                 <br/> Введите X: <div class="tooltip">
-                <input type="text" id="enter" name="koordX" style="width:170px;">
+                <input type="text" maxlength="30" id="enter" name="koordX" style="width:170px;">
                 <span class="tooltiptext">Введите число от -5 до 3</span>
             </div>
                 <br/><br/>
