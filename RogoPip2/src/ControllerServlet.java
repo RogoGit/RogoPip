@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @WebServlet("/")
 public class ControllerServlet extends HttpServlet {
@@ -47,8 +48,22 @@ public class ControllerServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String query = request.getRequestURI();
         String path  = query.split("/")[query.split("/").length - 1];
-        if (path.equals("clearHistory")) {
-           getServletContext().setAttribute("chTable", new ArrayList<String>());
+        if (path.contains("clearHistory")) {
+            if (Character.isDigit(path.charAt(path.length()-1))) {
+                 String[] getR = path.split("_");
+                 int rd = Integer.parseInt(getR[1]);
+                ArrayList<String> getTbl = (ArrayList<String>) getServletContext().getAttribute("chTable");
+                Iterator<String> i = getTbl.iterator();
+                while (i.hasNext()) {
+                    String s = i.next();
+                    String[] pieces = s.split("</td><td>");
+                    if (Integer.parseInt(pieces[2].trim()) == rd) {
+                         i.remove();
+                    }
+                }
+                getServletContext().setAttribute("chTable", getTbl);
+            } else {
+           getServletContext().setAttribute("chTable", new ArrayList<String>()); }
         }
         else {
             response.setContentType("text/html;charset=UTF-8");

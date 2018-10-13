@@ -260,13 +260,10 @@
 <center>
 <table border="1" id="results" width="80%">
       <tr>
-                <th colspan="3" width="40%"> Полученные данные </th>
-                <th rowspan="2" width="20%"> Результат </th>
-    </tr>
-    <tr>
-        <th> Координата Х  </th>
-        <th> Координата Y   </th>
-        <th>  Радиус  </th>
+             <th width="20%"> Координата Х  </th>
+            <th width="20%"> Координата Y   </th>
+             <th width="20%">  Радиус  </th>
+                <th width="20%"> Результат </th>
     </tr>
     <%
         ServletContext sct = request.getServletContext();
@@ -307,9 +304,21 @@
     %>
     <script>
         function cl() {
-            var rad = document.getElementById("AreaRad").value;
             areaRads[rad-1].length=0; //-1
             drawArea();
+            var tbl = document.getElementById("results");
+           var rowC = tbl.rows.length;
+         /*   for (let i = 0, n = tbl.rows.length; i < n; i++) {
+                for (var c = 0, m = tbl.rows[i].cells.length; c < m; c++) { */
+            for (let i = rowC - 1; i > 0; i--) {
+                if (tbl.rows[i].cells[2].textContent.trim() === rad) {
+                    tbl.deleteRow(i);
+                }
+            }
+
+            fetch(('clearHistory_'+rad), { method: 'POST' });
+             //   }
+            //}
         }
 
         function clearAll() {
@@ -319,7 +328,7 @@
             drawArea();
             var tbl = document.getElementById("results");
             var rowCount = tbl.rows.length;
-            for (var i = rowCount - 1; i > 0; i--) {
+            for (var i = rowCount-1; i > 0; i--) {
                 tbl.deleteRow(i);
             }
             fetch('clearHistory', { method: 'POST' });
