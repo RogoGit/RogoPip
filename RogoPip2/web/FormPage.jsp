@@ -8,10 +8,19 @@
     <link rel="stylesheet" href="Lab1TextField.css">
 
     <script type="text/javascript">
-
+        var chk = false;
         var areaRads = [1,2,3,4,5];
         for (k=0; k<5; k++) {
            areaRads[k] = [];
+        }
+
+        function chServer() {
+      /*  fetch('', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            }
+        });*/
         }
 
         var rad = 0;
@@ -61,8 +70,14 @@
               },true);
        };
 
+       /* function reportError(xObj){
+            var locationName = xObj.alt;
+            alert("Links on this page may not work since the server at " + locationName + " appears to be down!");
+        } */
+
 
        function drawArea() {
+         //  if (chk)
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
            rad = document.getElementById("AreaRad").value;
@@ -251,6 +266,7 @@
                <input type = "hidden" name = "koordX" id="kXarea"/>
                <input type = "hidden" name = "koordY" id="kYarea"/>
                <input type = "hidden" name = "radius" id="radArea"/>
+                <input type = "hidden" name = "ch" id="ch"/>
            </form>
         </center></td>
     </tr>
@@ -316,7 +332,7 @@
                 }
             }
 
-            fetch(('clearHistory_'+rad), { method: 'POST' });
+            fetch('clearHistory', { method: 'POST', body: 'rad='+rad, headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',} });
              //   }
             //}
         }

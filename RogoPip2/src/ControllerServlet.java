@@ -47,22 +47,22 @@ public class ControllerServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String query = request.getRequestURI();
-        String path  = query.split("/")[query.split("/").length - 1];
-        if (path.contains("clearHistory")) {
-            if (Character.isDigit(path.charAt(path.length()-1))) {
-                 String[] getR = path.split("_");
-                 int rd = Integer.parseInt(getR[1]);
-                ArrayList<String> getTbl = (ArrayList<String>) getServletContext().getAttribute("chTable");
-                Iterator<String> i = getTbl.iterator();
-                while (i.hasNext()) {
-                    String s = i.next();
-                    String[] pieces = s.split("</td><td>");
-                    if (Integer.parseInt(pieces[2].trim()) == rd) {
-                         i.remove();
-                    }
-                }
-                getServletContext().setAttribute("chTable", getTbl);
-            } else {
+       // String path  = query.split("/")[query.split("/").length - 1];
+        if (query.contains("clearHistory")) {
+           if (request.getParameter("rad") != null ) {
+               int rd = Integer.parseInt(request.getParameter("rad"));
+               ArrayList<String> getTbl = (ArrayList<String>) getServletContext().getAttribute("chTable");
+               Iterator<String> i = getTbl.iterator();
+               while (i.hasNext()) {
+                   String s = i.next();
+                   String[] pieces = s.split("</td><td>");
+                   if (Integer.parseInt(pieces[2].trim()) == rd) {
+                       i.remove();
+                   }
+               }
+               getServletContext().setAttribute("chTable", getTbl);
+           } else
+            {
            getServletContext().setAttribute("chTable", new ArrayList<String>()); }
         }
         else {
