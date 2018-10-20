@@ -24,9 +24,10 @@ public class ControllerServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String query = request.getRequestURI();
 
-        if (query != null && (query.endsWith(".css") || query.endsWith(".png"))) {
+        if (query != null && (query.endsWith(".css") || query.endsWith(".png") || query.endsWith(".js"))) {
             if (query.endsWith(".css")) response.setContentType("text/css;charset=UTF-8");
             if (query.endsWith(".png")) response.setContentType("image/png");
+            if (query.endsWith(".js")) response.setContentType("text/javascript;charset=UTF-8");
             String filename = query.split("/")[query.split("/").length - 1];
             InputStream res = getServletContext().getResourceAsStream("/" + filename);
             if (res == null) {
