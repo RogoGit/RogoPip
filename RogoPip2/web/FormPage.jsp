@@ -11,12 +11,10 @@
         var ifOK = true;
         var didTimeOut = false;
         var areaRads = [1,2,3,4,5];
-        const FETCH_TIMEOUT = 5000;
+        const FETCH_TIMEOUT = 3200;
         for (k=0; k<5; k++) {
            areaRads[k] = [];
         }
-
-
 
       /*  function chServer() {
             var oXHR = new XMLHttpRequest();
@@ -111,14 +109,53 @@ timeout(1000, fetch('/hello')).then(function(response) {
                 for(const pair of formData.entries()){
                     params.append(pair[0], pair[1]);
                 }
+
+                    new Promise(function(resolve, reject) {
+                        const timeout = setTimeout(function() {
+                            didTimeOut = true;
+                            reject(new Error('Request timed out'));
+                        }, FETCH_TIMEOUT);
                 fetch('', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                     },
                     body: params.toString()
-                }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
-            }
+                }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable))
+                    .then(function(response) {
+                        // Clear the timeout as cleanup
+                        clearTimeout(timeout);
+                        if(!didTimeOut) {
+                            console.log('fetch good! ', response);
+                            ifOK = true;
+                            resolve(response);
+                        }
+                    })
+                    .catch(function(err) {
+                        console.log('fetch failed! ', err);
+                        ifOK = false;
+                        // Rejection already happened with setTimeout
+                        if(didTimeOut) return;
+                        // Reject with error
+                        reject(err);
+                    });
+                    })
+                        .then(function() {
+                            ifOK = true;
+                            // Request success and no timeout
+                            console.log('good promise, no timeout! ');
+
+                        })
+                        .catch(function(err) {
+                            // Error: response error, request timeout or runtime error
+                            ifOK = false;
+                            alert("Серверные проблемы");
+                            console.log('promise error! ', err);
+                        });
+
+
+
+                }
 
 
 
@@ -157,7 +194,8 @@ timeout(1000, fetch('/hello')).then(function(response) {
            canvDraw.fillStyle = 'LightBlue';
            canvDraw.fill();
            canvDraw.stroke();
-           if (!ifOK) canv.removeEventListener('click',listener,true);
+           canv.removeEventListener('click',listener,true);
+           if (ifOK) canv.addEventListener('click',listener,true);
             if (areaRads[rad-1].length!==0 && ifOK) {    //-1
                  for (l=0; l<areaRads[rad-1].length; l++) { //-1
                 canvDraw.beginPath();
