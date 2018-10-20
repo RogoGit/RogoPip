@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="Lab1TextField.css">
 
     <script type="text/javascript">
+        var ifOK = true;
         var didTimeOut = false;
         var areaRads = [1,2,3,4,5];
         const FETCH_TIMEOUT = 5000;
@@ -15,11 +16,7 @@
            areaRads[k] = [];
         }
 
-        new Promise(function(resolve, reject) {
-            const timeout = setTimeout(function() {
-                didTimeOut = true;
-                reject(new Error('Request timed out'));
-            }, FETCH_TIMEOUT);
+
 
       /*  function chServer() {
             var oXHR = new XMLHttpRequest();
@@ -46,7 +43,11 @@
             if (g) {return true;} else {return false;}
 
 
-
+  new Promise(function(resolve, reject) {
+            const timeout = setTimeout(function() {
+                didTimeOut = true;
+                reject(new Error('Request timed out'));
+            }, FETCH_TIMEOUT);
 
 
 
@@ -70,11 +71,16 @@ timeout(1000, fetch('/hello')).then(function(response) {
         } */
 
         var rad = 0;
-        window.onload = function(e) {
+        window.onload = function() {
             var canv = document.getElementById("CheckArea");
             var canvDraw = canv.getContext("2d");
+            canv.addEventListener("click",listener,true);
             drawArea();
-            canv.addEventListener('click', function listener(evt) {
+        };
+
+                function listener(evt) {
+                    var canv = document.getElementById("CheckArea");
+                    var canvDraw = canv.getContext("2d");
                 var mousePos = getMousePos(canv, evt);
                 var color;
                 //var value = [];
@@ -99,8 +105,8 @@ timeout(1000, fetch('/hello')).then(function(response) {
                 document.getElementById("kXarea").value = (mousePos.x-200)/40;
                 document.getElementById("kYarea").value = -(mousePos.y-200)/40;
                 document.getElementById("radArea").value = rad;
-                e.preventDefault();
-                const formData = new FormData(document.querySelector('#checker2'))
+                evt.preventDefault();
+                const formData = new FormData(document.querySelector('#checker2'));
                 const params = new URLSearchParams();
                 for(const pair of formData.entries()){
                     params.append(pair[0], pair[1]);
@@ -112,8 +118,8 @@ timeout(1000, fetch('/hello')).then(function(response) {
                     },
                     body: params.toString()
                 }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
-            },true);
-        };
+            }
+
 
 
        /* function reportError(xObj){
@@ -126,7 +132,6 @@ timeout(1000, fetch('/hello')).then(function(response) {
          //  if (chk)
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
-          // canv.removeEventListener('click',List(evt),true);
            rad = document.getElementById("AreaRad").value;
            canvDraw.clearRect(0,0,canv.width,canv.height);
            var backGround = new Image();
@@ -152,7 +157,8 @@ timeout(1000, fetch('/hello')).then(function(response) {
            canvDraw.fillStyle = 'LightBlue';
            canvDraw.fill();
            canvDraw.stroke();
-            if (areaRads[rad-1].length!==0) {    //-1
+           if (!ifOK) canv.removeEventListener('click',listener,true);
+            if (areaRads[rad-1].length!==0 && ifOK) {    //-1
                  for (l=0; l<areaRads[rad-1].length; l++) { //-1
                 canvDraw.beginPath();
                 canvDraw.moveTo(areaRads[rad-1][l][0],areaRads[rad-1][l][1]);
