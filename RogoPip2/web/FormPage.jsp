@@ -8,67 +8,113 @@
     <link rel="stylesheet" href="Lab1TextField.css">
 
     <script type="text/javascript">
-        var chk = false;
+        var didTimeOut = false;
         var areaRads = [1,2,3,4,5];
+        const FETCH_TIMEOUT = 5000;
         for (k=0; k<5; k++) {
            areaRads[k] = [];
         }
 
-        function chServer() {
-      /*  fetch('', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            }
-        });*/
-        }
+        new Promise(function(resolve, reject) {
+            const timeout = setTimeout(function() {
+                didTimeOut = true;
+                reject(new Error('Request timed out'));
+            }, FETCH_TIMEOUT);
+
+      /*  function chServer() {
+            var oXHR = new XMLHttpRequest();
+            var g = false;
+            oXHR.open("GET", "/", true);
+
+            oXHR.onreadystatechange = function (oEvent) {
+                if (oXHR.readyState === 4) {
+                    if (oXHR.status === 200) {
+                        g = true;
+                        return true;
+                    } else {
+                        var tble = document.getElementById("results");
+                        g = false;
+                        alert ("Server Problems");
+                        return false;
+                        //console.log("Error", oXHR.statusText);
+                    }
+                }
+            };
+
+            oXHR.send(null);
+
+            if (g) {return true;} else {return false;}
+
+
+
+
+
+
+
+            function timeout(ms, promise) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function() {
+      reject(new Error("timeout"))
+    }, ms)
+    promise.then(resolve, reject)
+  })
+}
+
+timeout(1000, fetch('/hello')).then(function(response) {
+  // process response
+}).catch(function(error) {
+  // might be a timeout error
+})
+
+
+        } */
 
         var rad = 0;
-      window.onload = function(e) {
-           var canv = document.getElementById("CheckArea");
-           var canvDraw = canv.getContext("2d");
-
-          drawArea();
-          canv.addEventListener('click', function listener(evt) {
-              var mousePos = getMousePos(canv, evt);
-              var color;
-              //var value = [];
-              if (ifInside(mousePos.x,mousePos.y,rad)) {
-                  canvDraw.beginPath();
-                  canvDraw.moveTo(mousePos.x,mousePos.y);
-                  canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
-                  canvDraw.fillStyle = 'green';
-                  canvDraw.fill();
-                  color = 'green';
-              } else
-              {
-                  canvDraw.beginPath();
-                  canvDraw.moveTo(mousePos.x,mousePos.y);
-                  canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
-                  canvDraw.fillStyle = 'red';
-                  canvDraw.fill();
-                  color = 'red';
-              }
-              var value = [mousePos.x,mousePos.y,2,0,2*Math.PI,false,color];
-              areaRads[rad-1].push(value);
-              document.getElementById("kXarea").value = (mousePos.x-200)/40;
-                 document.getElementById("kYarea").value = -(mousePos.y-200)/40;
+        window.onload = function(e) {
+            var canv = document.getElementById("CheckArea");
+            var canvDraw = canv.getContext("2d");
+            drawArea();
+            canv.addEventListener('click', function listener(evt) {
+                var mousePos = getMousePos(canv, evt);
+                var color;
+                //var value = [];
+                if (ifInside(mousePos.x,mousePos.y,rad)) {
+                    canvDraw.beginPath();
+                    canvDraw.moveTo(mousePos.x,mousePos.y);
+                    canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
+                    canvDraw.fillStyle = 'green';
+                    canvDraw.fill();
+                    color = 'green';
+                } else
+                {
+                    canvDraw.beginPath();
+                    canvDraw.moveTo(mousePos.x,mousePos.y);
+                    canvDraw.arc(mousePos.x,mousePos.y,2,0,2*Math.PI,false);
+                    canvDraw.fillStyle = 'red';
+                    canvDraw.fill();
+                    color = 'red';
+                }
+                var value = [mousePos.x,mousePos.y,2,0,2*Math.PI,false,color];
+                areaRads[rad-1].push(value);
+                document.getElementById("kXarea").value = (mousePos.x-200)/40;
+                document.getElementById("kYarea").value = -(mousePos.y-200)/40;
                 document.getElementById("radArea").value = rad;
-              e.preventDefault();
-              const formData = new FormData(document.querySelector('#checker2'))
-              const params = new URLSearchParams();
-              for(const pair of formData.entries()){
-                  params.append(pair[0], pair[1]);
-              }
-              fetch('', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                  },
-                  body: params.toString()
-              }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
-              },true);
-       };
+                e.preventDefault();
+                const formData = new FormData(document.querySelector('#checker2'))
+                const params = new URLSearchParams();
+                for(const pair of formData.entries()){
+                    params.append(pair[0], pair[1]);
+                }
+                fetch('', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    },
+                    body: params.toString()
+                }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
+            },true);
+        };
+
 
        /* function reportError(xObj){
             var locationName = xObj.alt;
@@ -76,10 +122,11 @@
         } */
 
 
-       function drawArea() {
+       function drawArea(evt) {
          //  if (chk)
            var canv = document.getElementById("CheckArea");
            var canvDraw = canv.getContext("2d");
+          // canv.removeEventListener('click',List(evt),true);
            rad = document.getElementById("AreaRad").value;
            canvDraw.clearRect(0,0,canv.width,canv.height);
            var backGround = new Image();
@@ -197,7 +244,7 @@
                     }
                     var value2 = [kkx,kky,2,0,2*Math.PI,false,color2];
                     areaRads[rad-1].push(value2);
-                    drawArea();
+                    drawArea(e);
 
                     return true; }
             }
@@ -223,7 +270,7 @@
     <tr>
         <td width="45%">
             <form action="" method="POST"  name ="checker" id="checkForm">
-                Выберите R: <select name="radius" id = "AreaRad" onchange="drawArea()">
+                Выберите R: <select name="radius" id = "AreaRad" onchange="drawArea(evt)">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -266,7 +313,7 @@
                <input type = "hidden" name = "koordX" id="kXarea"/>
                <input type = "hidden" name = "koordY" id="kYarea"/>
                <input type = "hidden" name = "radius" id="radArea"/>
-                <input type = "hidden" name = "ch" id="ch"/>
+             <!--   <input type = "hidden" name = "ch" id="ch"/> -->
            </form>
         </center></td>
     </tr>
@@ -312,7 +359,7 @@
                      }
                      var value = [<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false,color];
                      areaRads[<%=pr[5]%>-1].push(value);
-                     drawArea();
+                     drawArea(evt);
                  </script>
            <%
             }
@@ -321,7 +368,7 @@
     <script>
         function cl() {
             areaRads[rad-1].length=0; //-1
-            drawArea();
+            drawArea(evt);
             var tbl = document.getElementById("results");
            var rowC = tbl.rows.length;
          /*   for (let i = 0, n = tbl.rows.length; i < n; i++) {
@@ -341,7 +388,7 @@
             for (r=0; r<areaRads.length; r++) {
                 areaRads[r].length=0;
             }
-            drawArea();
+            drawArea(evt);
             var tbl = document.getElementById("results");
             var rowCount = tbl.rows.length;
             for (var i = rowCount-1; i > 0; i--) {
