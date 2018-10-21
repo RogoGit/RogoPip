@@ -14,14 +14,19 @@ window.onload = function() {
 };
 
 function listener(evt) {
+    let txt,m;
     var didTimeOut = false;
     var canv = document.getElementById("CheckArea");
     var canvDraw = canv.getContext("2d");
     ifOK = true;
+    m = document.getElementById("errors");
     var mousePos = getMousePos(canv, evt);
     var color;
     //var value = [];
     /*  */
+    txt = "Точка обрабатывается...";
+    m.classList.remove("hidden");
+    document.getElementById("errors").innerHTML = txt;
     document.getElementById("kXarea").value = (mousePos.x-200)/40;
     document.getElementById("kYarea").value = -(mousePos.y-200)/40;
     document.getElementById("radArea").value = rad;
@@ -91,12 +96,14 @@ function listener(evt) {
             }
             var value = [mousePos.x,mousePos.y,2,0,2*Math.PI,false,color];
             areaRads[rad-1].push(value);
+            document.getElementById("errors").innerHTML = "Готово";
 
         })
         .catch(function(err) {
             // Error: response error, request timeout or runtime error
             ifOK = false;
-            alert("Серверные проблемы");
+           // alert("Серверные проблемы");
+            document.getElementById("errors").innerHTML = "ВНИМАНИЕ! Проблемы с сервером!";
             console.log('promise error! ', err);
             ifOK = true;
         });
