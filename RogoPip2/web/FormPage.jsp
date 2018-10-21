@@ -21,6 +21,7 @@
     <tr>
         <td width="45%">
             <form action="" method="POST"  name ="checker" id="checkForm">
+                <input type = "hidden" name = "name" value="TextForm"/>
                 Выберите R: <select name="radius" id = "AreaRad" onchange="drawArea()">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -61,6 +62,7 @@
           <!--  <canvas id="can2" width="400" height="400"> </canvas> -->
             <form action="" method="POST"  id ="checker2">
             <canvas style="background: url(Coordinates.png) no-repeat center center;" id="CheckArea" width="400" height="400"> </canvas>
+                <input type = "hidden" name = "name" id="fname" value="AreaForm"/>
                <input type = "hidden" name = "koordX" id="kXarea"/>
                <input type = "hidden" name = "koordY" id="kYarea"/>
                <input type = "hidden" name = "radius" id="radArea"/>
