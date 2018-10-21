@@ -1,6 +1,6 @@
-var ifOK = true;
 var areaRads = [1,2,3,4,5];
 const FETCH_TIMEOUT = 3200;
+var ifOK = true;
 for (k=0; k<5; k++) {
     areaRads[k] = [];
 }
@@ -15,7 +15,7 @@ window.onload = function() {
 
 function listener(evt) {
     let txt,m;
-    var didTimeOut = false;
+    let didTimeOut = false;
     var canv = document.getElementById("CheckArea");
     var canvDraw = canv.getContext("2d");
     ifOK = true;
@@ -51,8 +51,7 @@ function listener(evt) {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             },
             body: params.toString()
-        }).then(response => response.text())
-            .then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable))
+        }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable))
             .then(function(response) {
                 // Clear the timeout as cleanup
                 clearTimeout(timeout);
@@ -174,6 +173,8 @@ function ifInside(x,y,nesRad) {
 
 function checkValid(e) {
     var x, er, text;
+  //  let ifOK = true;
+    let didTimeOut = false;
     var canv = document.getElementById("CheckArea");
     var canvDraw = canv.getContext("2d");
     er = document.getElementById("errors");
@@ -203,36 +204,77 @@ function checkValid(e) {
             for(const pair of formData.entries()){
                 params.append(pair[0], pair[1]);
             }
+            document.getElementById("errors").classList.remove("hidden");
+            document.getElementById("errors").innerHTML = "Точка обрабатывается...";
+            ////////////////////
+            new Promise(function(resolve, reject) {
+                const timeout = setTimeout(function() {
+                    didTimeOut = true;
+                    reject(new Error('Request timed out'));
+                }, FETCH_TIMEOUT);
             fetch('', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                 },
                 body: params.toString()
-            }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable));
+            }).then(response => response.text()).then(htmlTable => document.querySelector('#results').insertAdjacentHTML('beforeend', htmlTable))
+                .then(function(response) {
+                    // Clear the timeout as cleanup
+                    clearTimeout(timeout);
+                    if(!didTimeOut) {
+                        console.log('fetch good! ', response);
+                        ifOK = true;
+                        resolve(response);
+                    }
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    ifOK = false;
 
-
-            var color2;
-            var kkx = document.getElementById("enter").value*40+200;
-            var kky = document.getElementById("kYY").value*(-40)+200;
-            if (ifInside(kkx,kky,rad)) {
-                canvDraw.beginPath();
-                canvDraw.moveTo(kkx,kky);
-                canvDraw.arc(kkx,kky,2,0,2*Math.PI,false);
-                canvDraw.fillStyle = 'green';
-                canvDraw.fill();
-                color2 = 'green';
-            } else {
-                canvDraw.beginPath();
-                canvDraw.moveTo(kkx,kky);
-                canvDraw.arc(kkx,kky,2,0,2*Math.PI,false);
-                canvDraw.fillStyle = 'red';
-                canvDraw.fill();
-                color2 = 'red';
-            }
-            var value2 = [kkx,kky,2,0,2*Math.PI,false,color2];
-            areaRads[rad-1].push(value2);
-            drawArea();
+                    // Rejection already happened with setTimeout
+                    if(didTimeOut) return;
+                    // Reject with error
+                    reject(err);
+                });
+            })
+                .then(function() {
+                    ifOK = true;
+                    // Request success and no timeout
+                    console.log('good promise, no timeout! ');
+                    canv.addEventListener('click',listener,true);
+                    let color2;
+                    var kkx = document.getElementById("enter").value*40+200;
+                    var kky = document.getElementById("kYY").value*(-40)+200;
+                    if (ifInside(kkx,kky,rad)) {
+                        canvDraw.beginPath();
+                        canvDraw.moveTo(kkx,kky);
+                        canvDraw.arc(kkx,kky,2,0,2*Math.PI,false);
+                        canvDraw.fillStyle = 'green';
+                        canvDraw.fill();
+                        color2 = 'green';
+                    } else {
+                        canvDraw.beginPath();
+                        canvDraw.moveTo(kkx,kky);
+                        canvDraw.arc(kkx,kky,2,0,2*Math.PI,false);
+                        canvDraw.fillStyle = 'red';
+                        canvDraw.fill();
+                        color2 = 'red';
+                    }
+                    var value2 = [kkx,kky,2,0,2*Math.PI,false,color2];
+                    areaRads[rad-1].push(value2);
+                    document.getElementById("errors").innerHTML = "Готово";
+                    //drawArea();
+                })
+                .catch(function(err) {
+                    // Error: response error, request timeout or runtime error
+                    ifOK = false;
+                    // alert("Серверные проблемы");
+                    document.getElementById("errors").innerHTML = "ВНИМАНИЕ! Проблемы с сервером!";
+                    console.log('promise error! ', err);
+                    ifOK = true;
+                });
+                    //////////////////////////////
 
             return true; }
     }
