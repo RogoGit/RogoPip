@@ -34,7 +34,7 @@ public class AreaCheckServlet extends HttpServlet {
         response.setContentType("text/html");
         name = request.getParameter("name");
          kx=request.getParameter("koordX");
-         if (kx.contains(",")) { kx.replace(",","."); }
+         if (kx.contains(",")) { kx = kx.replace(",","."); }
         request.setAttribute("X",kx);
          ky=request.getParameter("koordY");
         request.setAttribute("Y",ky);
