@@ -6,6 +6,26 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
+    <h:head>
+        <link href="PagesStyle.css" rel="stylesheet"/>
+        <title> LabWork Main Page </title>
+    </h:head>
+    <h:body>
+        <center>
+        <div class="BackPanel" >
+            <div class="MainPanels" id="LabHeader">
+                Рогаленко Н.А, Исаев А.С. Р3202 - Лабораторная №3, вариант 20211
+            </div>
+            <div class = "MainPanels" id="Clock">
+            </div>
+            <div class="MainPanels" id="Greetings">
+            </div>
+        </div>
+        </center>
+    </h:body>
+    <script type="text/javascript" src="MainPageScripts.js">
+        //window.onload(function() {clock("Clock")});
+        document.addEventListener("DOMContentLoaded", clock("Clock"));
+    </script>
 </f:view>
 </html>

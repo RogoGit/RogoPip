@@ -1,0 +1,26 @@
+body {
+ padding: 20px;
+}
+.BackPanel {
+    width: 80%;
+    height: 80%;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 25px;
+    background: cornflowerblue;
+}
+.MainPanels {
+    border-radius: 25px;
+    background: lightblue;
+}
+#LabHeader {
+    width: 95%;
+    height: 25%;
+    margin: 5px;
+    text-align: center;
+}
+#Clock {
+    float: left;
+    width: 50%;
+    height: 75%;
+}
