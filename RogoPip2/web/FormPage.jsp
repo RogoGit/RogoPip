@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.rogo.Store" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -83,35 +84,41 @@
     </tr>
     <%
         ServletContext sct = request.getServletContext();
-        ArrayList<String> tabStr = (ArrayList<String>) sct.getAttribute("chTable");
+        ArrayList<com.rogo.Store> tabStr = (ArrayList<com.rogo.Store>) sct.getAttribute("chTable");
         if (tabStr!=null) {
             for (int i=0; i<tabStr.size();i++) {
-                String outS = tabStr.get(i);
-                String[] pr = outS.split(" ");%>
-                      <%= outS %>
+                com.rogo.Store outS = tabStr.get(i); %>
+                  <tr>
+                      <td> <%= outS.x %></td>
+                      <td> <%= outS.y %></td>
+                      <td> <%= outS.rad %></td>
+                      <td> <%= outS.res %></td>
+                  </tr>
+    <%
+             //   String[] pr = outS.split(" "); %>
                  <script>
                      var color;
                      var canv = document.getElementById("CheckArea");
                      var canvDraw = canv.getContext("2d");
                      //var value = [];
-                     if (ifInside(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,<%=pr[5]%>)) {
+                     if (ifInside(<%=Double.parseDouble(outS.x)*40+200%>,<%=Double.parseDouble(outS.y)*(-40)+200%>,<%=outS.rad%>)) {
                          canvDraw.beginPath();
-                         canvDraw.moveTo(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>);
-                         canvDraw.arc(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false);
+                         canvDraw.moveTo(<%=Double.parseDouble(outS.x)*40+200%>,<%=Double.parseDouble(outS.y)*(-40)+200%>);
+                         canvDraw.arc(<%=Double.parseDouble(outS.x)*40+200%>,<%=Double.parseDouble(outS.y)*(-40)+200%>,2,0,2*Math.PI,false);
                          canvDraw.fillStyle = 'green';
                          canvDraw.fill();
                          color = 'green';
                      } else
                      {
                          canvDraw.beginPath();
-                         canvDraw.moveTo(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>);
-                         canvDraw.arc(<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false);
+                         canvDraw.moveTo(<%=Double.parseDouble(outS.x)*40+200%>,<%=Double.parseDouble(outS.y)*(-40)+200%>);
+                         canvDraw.arc(<%=Double.parseDouble(outS.x)*40+200%>,<%=Double.parseDouble(outS.y)*(-40)+200%>,2,0,2*Math.PI,false);
                          canvDraw.fillStyle = 'red';
                          canvDraw.fill();
                          color = 'red';
                      }
-                     var value = [<%=Double.parseDouble(pr[1])*40+200%>,<%=Double.parseDouble(pr[3])*(-40)+200%>,2,0,2*Math.PI,false,color];
-                     areaRads[<%=pr[5]%>-1].push(value);
+                     var value = [<%=Double.parseDouble(outS.x)*40+200%>,<%=Double.parseDouble(outS.y)*(-40)+200%>,2,0,2*Math.PI,false,color];
+                     areaRads[<%=outS.rad%>-1].push(value);
                      drawArea(evt);
                  </script>
            <%

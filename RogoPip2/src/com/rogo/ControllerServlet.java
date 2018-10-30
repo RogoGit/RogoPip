@@ -1,14 +1,12 @@
+package com.rogo;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -17,12 +15,12 @@ public class ControllerServlet extends HttpServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        ArrayList<String> checkings = new ArrayList<>();
+        ArrayList<Store> checkings = new ArrayList<>();
         getServletContext().setAttribute("chTable", checkings);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String query = request.getRequestURI();
+       String query = request.getRequestURI();
 
         if (query != null && (query.endsWith(".css") || query.endsWith(".png") || query.endsWith(".js"))) {
             if (query.endsWith(".css")) response.setContentType("text/css;charset=UTF-8");
@@ -52,29 +50,35 @@ public class ControllerServlet extends HttpServlet {
         if (query.contains("clearHistory")) {
            if (request.getParameter("rad") != null ) {
                int rd = Integer.parseInt(request.getParameter("rad"));
-               ArrayList<String> getTbl = (ArrayList<String>) getServletContext().getAttribute("chTable");
-               Iterator<String> i = getTbl.iterator();
+               ArrayList<Store> getTbl = (ArrayList<Store>) getServletContext().getAttribute("chTable");
+               Iterator<Store> i = getTbl.iterator();
                while (i.hasNext()) {
-                   String s = i.next();
-                   String[] pieces = s.split("</td><td>");
-                   if (Integer.parseInt(pieces[2].trim()) == rd) {
+                   Store s = i.next();
+                  // String[] pieces = s.split("</td><td>");
+                   if (s.rad.equals(Integer.toString(rd))) {
                        i.remove();
                    }
                }
                getServletContext().setAttribute("chTable", getTbl);
            } else
             {
-           getServletContext().setAttribute("chTable", new ArrayList<String>()); }
+           getServletContext().setAttribute("chTable", new ArrayList<Store>()); }
         }
         else {
+
             response.setContentType("text/html;charset=UTF-8");
-            String kx = request.getParameter("koordX");
-            request.setAttribute("X", kx);
-            String ky = request.getParameter("koordY");
-            request.setAttribute("Y", ky);
-            String rad = request.getParameter("radius");
-            request.setAttribute("RAD", rad);
-            request.getRequestDispatcher("/checkServ").forward(request, response);
+                String kx = request.getParameter("koordX");
+                request.setAttribute("X", kx);
+                String ky = request.getParameter("koordY");
+                request.setAttribute("Y", ky);
+                String rad = request.getParameter("radius");
+                request.setAttribute("RAD", rad);
+                if (kx!=null && ky!=null && rad!=null) {
+                    request.getRequestDispatcher("/checkServ").forward(request, response);
+                } else {
+                    response.sendError(400);
+                }
+
         }
     }
 
