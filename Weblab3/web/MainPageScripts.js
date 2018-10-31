@@ -1,17 +1,10 @@
-function clock(id) {
+function clock() {
     var now = new Date();
-    var canvas = document.createElement('canvas');
-    var div = document.getElementById(id);
-    canvas.id = "AnimatedClock";
-    canvas.width= "95%";
-    canvas.height= "95%";
-    canvas.style.position = "relative";
-    div.appendChild(canvas);
-    var ctx = document.getElementById('canvas').getContext('2d');
+    var ctx = document.getElementById('cl').getContext('2d');
     ctx.save();
-    ctx.clearRect(0, 0, 150, 150);
-    ctx.translate(75, 75);
-    ctx.scale(0.4, 0.4);
+    ctx.clearRect(0, 0, 450, 450);
+    ctx.translate(150, 75);
+    ctx.scale(0.75, 0.4);
     ctx.rotate(-Math.PI / 2);
     ctx.strokeStyle = 'black';
     ctx.fillStyle = 'white';
