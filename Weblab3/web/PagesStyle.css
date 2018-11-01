@@ -27,9 +27,14 @@ body {
 #Clock {
     float: left;
     width: 45%;
-    height: 65%;
+    height: 75%;
     margin: 2.5%;
     font-size: 24pt;
+}
+
+input[type="button"] {
+    height: 30px;
+    width: 200px;
 }
 
 #Greetings {
@@ -45,4 +50,8 @@ body {
     height: 450px;
     background: white;
     border-radius: 200px;
+}
+
+p {
+    padding: 10px;
 }

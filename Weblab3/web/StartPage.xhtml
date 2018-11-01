@@ -11,10 +11,11 @@
         <title> LabWork Main Page </title>
     </h:head>
     <h:body>
-        <center>
         <div class="BackPanel" >
             <div class="MainPanels" id="LabHeader">
+                <center>
                 Рогаленко Н.А, Исаев А.С. Р3202 - Лабораторная №3, вариант 20211
+                </center>
             </div>
             <div class = "MainPanels" id="Clock">
                 <center>
@@ -24,12 +25,17 @@
                 </center>
             </div>
             <div class="MainPanels" id="Greetings">
-                hjhjhkjhkhhkjhhkhkj
+               <p> Можно бесконечно смотреть на часы, а можно нажать на кнопку ниже и перейти к проверке попадания в область!</p>
+                <center>
+                <h:form>
+                <h:commandButton style="background: silver; width: 70%; height: 40px; font-size: 18pt; margin-top: 37%; "
+                                 value="Перейти к проверке" action="toMain" />
+                </h:form>
+                </center>
             </div>
         </div>
-        </center>
         </h:body>
-    <script type="text/javascript" src="MainPageScripts.js">
+    <script type="text/javascript" src="StartPageScripts.js">
         clock("Clock");
     </script>
 </f:view>
