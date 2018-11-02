@@ -11,7 +11,7 @@ function clock() {
     ctx.lineWidth = 8;
     ctx.lineCap = 'round';
 
-    // Hour marks
+    // Штрихи часов
     ctx.save();
     for (var i = 0; i < 12; i++) {
         ctx.beginPath();
@@ -22,7 +22,7 @@ function clock() {
     }
     ctx.restore();
 
-    // Minute marks
+    // Минутные отметки
     ctx.save();
     ctx.lineWidth = 5;
     for (i = 0; i < 60; i++) {
@@ -43,7 +43,7 @@ function clock() {
 
     ctx.fillStyle = 'black';
 
-    // write Hours
+    // часы
     ctx.save();
     ctx.rotate(hr * (Math.PI / 6) + (Math.PI / 360) * min + (Math.PI / 21600) *sec);
     ctx.lineWidth = 14;
@@ -53,7 +53,7 @@ function clock() {
     ctx.stroke();
     ctx.restore();
 
-    // write Minutes
+    // минуты
     ctx.save();
     ctx.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec);
     ctx.lineWidth = 10;
@@ -63,7 +63,7 @@ function clock() {
     ctx.stroke();
     ctx.restore();
 
-    // Write seconds
+    // секунды
     ctx.save();
     ctx.rotate(sec * Math.PI / 30);
     ctx.strokeStyle = '#D40000';

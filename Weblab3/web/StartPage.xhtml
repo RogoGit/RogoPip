@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <f:view>
     <h:head>
         <link href="PagesStyle.css" rel="stylesheet"/>
@@ -19,9 +20,17 @@
             </div>
             <div class = "MainPanels" id="Clock">
                 <center>
-                    На нашем сервере сейчас: <br/>
+                    На нашем клиенте сейчас: <br/>
                     <br/>
                     <canvas id="cl"></canvas>
+                    <br/>
+                    На сервере сейчас:
+                    <!-- Начало ошибки - update воспринимается как property-->
+                    <h:form class="clock">
+                        <h:outputText id="clock" value="#{serverTime.time}" />
+                        <p:poll interval="11" listener="#{serverTime.update}" update="clock" />
+                    </h:form>
+                    <!-- Конец ошибки-->
                 </center>
             </div>
             <div class="MainPanels" id="Greetings">
@@ -36,7 +45,7 @@
         </div>
         </h:body>
     <script type="text/javascript" src="StartPageScripts.js">
-        clock("Clock");
+            clock();
     </script>
 </f:view>
 </html>

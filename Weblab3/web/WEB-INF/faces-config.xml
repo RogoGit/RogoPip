@@ -3,6 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
     <navigation-rule>
         <from-view-id>/StartPage.xhtml</from-view-id>
         <navigation-case>
@@ -11,6 +12,7 @@
             <to-view-id>/MainPage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/MainPage.xhtml</from-view-id>
         <navigation-case>
@@ -19,4 +21,11 @@
             <to-view-id>/StartPage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <managed-bean eager="true">
+        <managed-bean-name>serverTime</managed-bean-name>
+        <managed-bean-class>com.RogIsa.beans.ServerTimeBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+
 </faces-config>
