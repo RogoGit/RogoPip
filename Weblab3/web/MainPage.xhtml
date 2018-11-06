@@ -4,65 +4,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <f:view>
     <h:head>
         <link href="MainPageStyles.css" rel="stylesheet"/>
         <title> LabWork Main Page </title>
     </h:head>
     <h:body>
-        <div class="BackPanel" >
+        <div class="BackPanel">
             <div class="MainPanels" id="PageHeader">
-            <h:form>
-                 <h:commandButton style="background: silver; width: 12%; height: 40px; font-size: 18pt; float: left; margin-left: 2.5%; margin-top:1.25%  "
-                         value="На главную" action="toStart" />
-                <center style="position: center">
-                    Проверка попадания
-                </center>
-            </h:form>
+                <h:form>
+                    <h:commandButton
+                            style="background: silver; width: 12%; height: 40px; font-size: 18pt; float: left; margin-left: 2.5%; margin-top:1.25%  "
+                            value="На главную" action="toStart"/>
+                    <center style="position: center">
+                        Проверка попадания
+                    </center>
+                </h:form>
             </div>
             <div class="MainPanels" id="Area">
                 <!-- Здесь будет область-->
             </div>
             <div class="MainPanels" id="CheckTable">
-                <center> Таблица проверок </center>
+                <center> Таблица проверок</center>
                 <br/>
                 <table id="checks">
                     <tr>
-                        <th> Координата Х </th>
-                        <th> Координата Y </th>
-                        <th> Радиус </th>
+                        <th> Координата Х</th>
+                        <th> Координата Y</th>
+                        <th> Радиус</th>
                         <th> Результат</th>
                     </tr>
                 </table>
             </div>
             <div class="MainPanels" id="Fields">
-                 <h:form>
-                     <br/> Введите X:   <div class="tooltip">
-                     <input type="text" maxlength="30" class="enter" name="koordX" style="width:170px;"> </input>
-                     <span class="tooltiptext">Введите число от -5 до 3</span>
-                 </div> <br/>
-                     <br/>
-                      Введите Y:   <div class="tooltip">
-                     <input type="text" maxlength="30" class="enter" name="koordY" style="width:170px;"> </input>
-                     <span class="tooltiptext">Введите число от -5 до 3</span>
-                 </div> <br/>
-                     <br/> Выберите R:
-                     <br/> <br/>
-                     <h:commandButton style="background: silver; font-size: 14pt; width:50%; height:90%; margin-left: 2.5%;"
-                                      value="Проверить"  />
-                     <br/> <br/>
-                     <h:outputLabel id="errors" class="hidden" style="width:90%;"> </h:outputLabel>
-                 </h:form>
+                <h:form>
+                    <br/> Введите R:
+                    <div class="tooltip">
+                        <input type="text" maxlength="30" class="enter" name="radius" style="width:170px;"> </input>
+                        <span class="tooltiptext">Введите число от 1 до 4</span>
+                    </div>
+                    <br/>
+                    <br/>
+                    Введите Y:
+                    <div class="tooltip">
+                        <input type="text" maxlength="30" class="enter" name="koordY" style="width:170px;"> </input>
+                        <span class="tooltiptext">Введите число от -3 до 3</span>
+                    </div>
+                    <br/>
+                    <br/> Выберите X:
+                    <p:spinner id="rad" value="#{spinnerView.radius}" stepFactor="0.5" min="-4" max="4"></p:spinner>
+                    <br/> <br/>
+                    <h:commandButton
+                            style="background: silver; font-size: 14pt; width:50%; height:90%; margin-left: 2.5%;"
+                            value="Проверить"/>
+                    <br/> <br/>
+                    <h:outputLabel id="errors" class="hidden" style="width:90%;"></h:outputLabel>
+                </h:form>
             </div>
             <div class="MainPanels" id="ClearHist">
                 <center>
                     <h:form>
-                    <h:commandButton style="background: silver; font-size: 18pt; width:80%; height:90%; margin-left: 2.5%; margin-top:5.25%;"
-                                     value="Убрать текущие точки"  />
+                        <h:commandButton
+                                style="background: silver; font-size: 18pt; width:80%; height:90%; margin-left: 2.5%; margin-top:5.25%;"
+                                value="Убрать текущие точки"/>
                     </h:form>
-                <!--    <input type="button" id = "cle" value="Убрать текущие точки" > </input> -->
+                    <!--    <input type="button" id = "cle" value="Убрать текущие точки" > </input> -->
                 </center>
             </div>
         </div>

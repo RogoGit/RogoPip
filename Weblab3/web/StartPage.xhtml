@@ -24,13 +24,12 @@
                     <br/>
                     <canvas id="cl"></canvas>
                     <br/>
-                    На сервере сейчас:
-                    <!-- Начало ошибки - update воспринимается как property
-                    <h:form class="clock">
-                        <h:outputText id="clock" value="#{serverTime.time}" />
-                        <p:poll interval="11" listener="#{serverTime.update}" update="clock" />
+                    <!-- Начало ошибки - update воспринимается как property -->
+                    <h:form id="clockForm">
+                        <p:poll interval="3" update="clock" />
+                        <h:outputText id="clock" value="На сервере сейчас: #{serverTime.time}" />
                     </h:form>
-                     Конец ошибки-->
+                     <!-- Конец ошибки -->
                 </center>
             </div>
             <div class="MainPanels" id="Greetings">

@@ -22,10 +22,15 @@
         </navigation-case>
     </navigation-rule>
 
- <!--   <managed-bean eager="true">
+   <managed-bean eager="true">
         <managed-bean-name>serverTime</managed-bean-name>
         <managed-bean-class>com.RogIsa.beans.ServerTimeBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean eager="true">
+        <managed-bean-name>spinnerView</managed-bean-name>
+        <managed-bean-class>com.RogIsa.beans.SpinnerViewBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
--->
 </faces-config>
