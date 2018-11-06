@@ -9,7 +9,7 @@
 <f:view>
     <h:head>
         <link href="PagesStyle.css" rel="stylesheet"/>
-        <title> LabWork Main Page </title>
+        <title> LabWork Start Page </title>
     </h:head>
     <h:body>
         <div class="BackPanel" >
@@ -25,12 +25,12 @@
                     <canvas id="cl"></canvas>
                     <br/>
                     На сервере сейчас:
-                    <!-- Начало ошибки - update воспринимается как property-->
+                    <!-- Начало ошибки - update воспринимается как property
                     <h:form class="clock">
                         <h:outputText id="clock" value="#{serverTime.time}" />
                         <p:poll interval="11" listener="#{serverTime.update}" update="clock" />
                     </h:form>
-                    <!-- Конец ошибки-->
+                     Конец ошибки-->
                 </center>
             </div>
             <div class="MainPanels" id="Greetings">
