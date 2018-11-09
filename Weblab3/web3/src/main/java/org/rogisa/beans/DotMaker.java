@@ -6,13 +6,22 @@ public class DotMaker implements Serializable {
     private double kx;
     private double ky;
     private double rad;
-    private boolean res;
+    private String color;
+    private String res;
 
-    public DotMaker(double kx, double ky, double rad, boolean res) {
+    public DotMaker(double kx, double ky, double rad, String res) {
         this.kx = kx;
         this.ky = ky;
         this.rad = rad;
         this.res = res;
+    }
+
+    public DotMaker() {
+
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public double getKx() {
@@ -27,7 +36,7 @@ public class DotMaker implements Serializable {
         return rad;
     }
 
-    public boolean getRes() {
+    public String getRes() {
         return res;
     }
 }

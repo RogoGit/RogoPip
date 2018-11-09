@@ -15,4 +15,17 @@
         <managed-bean-class>org.rogisa.beans.SpinnerViewBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+
+    <managed-bean eager="true">
+        <managed-bean-name>dotsColl</managed-bean-name>
+        <managed-bean-class>org.rogisa.beans.DotsCollectionBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean eager="true">
+        <managed-bean-name>dotMake</managed-bean-name>
+        <managed-bean-class>org.rogisa.beans.DotMaker</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
 </faces-config>
