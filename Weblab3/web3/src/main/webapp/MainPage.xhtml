@@ -34,7 +34,7 @@
                 <line x1="190" x2="190" y1="0" y2="420" stroke="black" stroke-width="3"/>
                 <line x1="0" x2="380" y1="210" y2="210" stroke="black" stroke-width="3"/>
                     <ui:repeat value="#{dotsColl.areaDots}" var="dot">
-                    <circle r="2" cx="#{190 + dot.kx*180*dot.rad}" cy="#{(210 + -180*dot.ky*dot.rad)}" fill="#{dot.color}" />
+                    <circle r="3" cx="#{190 + dot.kx*180*dot.rad}" cy="#{(210 + -180*dot.ky*dot.rad)}" fill="#{dot.color}" />
                     </ui:repeat>
                 </svg>
                 </center>
@@ -42,34 +42,26 @@
             <h:panelGroup styleClass="MainPanels" id="CheckTable" layout="block">
                 <center> Таблица проверок</center>
                 <br/>
-                <h:form>
-                <h:dataTable id="checks" class = "table" styleClass="table">
+
+                <h:dataTable id="checks" class = "table" value="#{dotsColl.areaDots}" var="dot" styleClass="table">
                     <h:column>
                         <f:facet name="header"> Координата Х </f:facet>
-                        <ui:repeat value="#{dotsColl.areaDots}" var="dot">
-                            #{dot.kx}
-                        </ui:repeat>
+                            <h:outputText value="#{dot.kx}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header"> Координата Y </f:facet>
-                        <ui:repeat value="#{dotsColl.areaDots}" var="dot">
-                            #{dot.ky}
-                        </ui:repeat>
+                           <h:outputText value=" #{dot.ky}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header"> Радиус </f:facet>
-                        <ui:repeat value="#{dotsColl.areaDots}" var="dot">
-                            #{dot.rad}
-                        </ui:repeat>
+                            <h:outputText value="#{dot.rad}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header"> Результат </f:facet>
-                        <ui:repeat value="#{dotsColl.areaDots}" var="dot">
-                            #{dot.res}
-                        </ui:repeat>
+                            <h:outputText value="#{dot.res}"/>
                     </h:column>
                 </h:dataTable>
-                </h:form>
+
             </h:panelGroup>
             <h:panelGroup styleClass="MainPanels" id="Fields" layout="block">
                 <h:form id="fieldsForm">
@@ -92,7 +84,8 @@
                     <h:commandButton
                             style="background: silver; font-size: 14pt; width:50%; height:90%; margin-left: 2.5%;"
                             action="#{dotsColl.addDot( dotMake.kx, dotMake.ky, dotMake.rad)}"
-                            value="Проверить"/>
+                            value="Проверить">
+                    </h:commandButton>
                     <br/> <br/>
                     <h:outputLabel id="errors" styleClass="hidden" style="width:90%;"/>
                 </h:form>

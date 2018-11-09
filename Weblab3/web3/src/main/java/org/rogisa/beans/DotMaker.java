@@ -9,10 +9,11 @@ public class DotMaker implements Serializable {
     private String color;
     private String res;
 
-    public DotMaker(double kx, double ky, double rad, String res) {
+    public DotMaker(double kx, double ky, double rad, String color, String res) {
         this.kx = kx;
         this.ky = ky;
         this.rad = rad;
+        this.color = color;
         this.res = res;
     }
 
