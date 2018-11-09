@@ -76,7 +76,7 @@ body {
     display: None;
 }
 
-#checks {
+.table {
     background: silver;
     border-collapse: separate;
     border: 2px solid black;

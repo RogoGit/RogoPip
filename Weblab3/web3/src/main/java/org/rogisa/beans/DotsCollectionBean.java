@@ -15,7 +15,13 @@ public class DotsCollectionBean implements Serializable {
 
     }
 
-    public void addDot(DotMaker newDot) {
+    public void addDot(String kx, String ky, String rad) {
+        if (this.areaDots==null) {this.areaDots=new ArrayList<>();}
+        DotMaker newDot = new DotMaker();
+        newDot.setKx(Double.parseDouble(kx));
+        newDot.setKy(Double.parseDouble(ky));
+        newDot.setRad(Double.parseDouble(rad));
+        newDot.areaCheck();
         areaDots.add(newDot);
     }
 
