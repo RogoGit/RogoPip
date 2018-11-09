@@ -3,7 +3,7 @@ plugins {
     id 'war'
 }
 
-group 'g3'
+group 'org.rogisa'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

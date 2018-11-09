@@ -1,0 +1,59 @@
+body {
+ padding: 20px;
+    background: crimson;
+}
+.BackPanel {
+    height: 90%;
+    position: absolute;
+    border: 2px solid black;
+    border-radius: 25px;
+    background: cornflowerblue;
+    width:90%;
+    margin:0 auto;
+}
+.MainPanels {
+    border-radius: 25px;
+    background: lightblue;
+    display: inline-block;
+}
+#LabHeader {
+    width: 95%;
+    height: 7.5%;
+    margin-top: 2.5%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-bottom: 1px;
+    text-align: center;
+    font-size: 25pt;
+}
+#Clock {
+    float: left;
+    width: 45%;
+    height: 75%;
+    margin: 2.5%;
+    font-size: 24pt;
+}
+
+input[type="button"] {
+    height: 30px;
+    width: 200px;
+}
+
+#Greetings {
+    float: right;
+    width: 45%;
+    height: 75%;
+    margin: 2.5%;
+    font-size: 24pt;
+}
+
+#cl {
+    width: 450px;
+    height: 450px;
+    background: white;
+    border-radius: 200px;
+}
+
+p {
+    padding: 10px;
+}
