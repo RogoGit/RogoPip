@@ -25,7 +25,7 @@
             </h:panelGroup>
             <h:panelGroup styleClass="MainPanels" id="Area" layout="block">
                 <center>
-                <svg width="380" height="420" onclick="">
+                <svg width="380" height="420" onclick="makeNewDot()">
                 <circle r="90" cx="190" cy="210" fill="silver"/>
                     <polygon points="190,210 190,30 370,30 370,210" fill="cornflowerblue"/>
                     <polygon points="190,210 190,390 370,390 370,210" fill="cornflowerblue"/>
@@ -51,10 +51,10 @@
                 </h:form>
             </h:panelGroup>
             <h:panelGroup styleClass="MainPanels" id="Fields" layout="block">
-                <h:form>
+                <h:form id="fieldsForm">
                     <br/> Введите R:
                     <h:panelGroup styleClass="tooltip" layout="block">
-                        <h:inputText maxlength="30" styleClass="enter" style="width:170px;"> </h:inputText>
+                        <h:inputText value="1" maxlength="30" onchange="resizeArea()" styleClass="enter" id ="rad" style="width:170px;"> </h:inputText>
                         <span class="tooltiptext">Введите число от 1 до 4</span>
                     </h:panelGroup>
                     <br/>
@@ -66,13 +66,13 @@
                     </h:panelGroup>
                     <br/>
                     <br/> Выберите X:
-                    <p:spinner id="kx" value="#{spinnerView.radius}" stepFactor="0.5" min="-4" max="4" size="12"></p:spinner>
+                    <p:spinner id="kx" value="#{spinnerView.radius}" stepFactor="0.5" min="-4" max="4" size="12"/>
                     <br/> <br/>
                     <h:commandButton
                             style="background: silver; font-size: 14pt; width:50%; height:90%; margin-left: 2.5%;"
                             value="Проверить"/>
                     <br/> <br/>
-                    <h:outputLabel id="errors" styleClass="hidden" style="width:90%;"></h:outputLabel>
+                    <h:outputLabel id="errors" styleClass="hidden" style="width:90%;"/>
                 </h:form>
             </h:panelGroup>
             <h:panelGroup styleClass="MainPanels" id="ClearHist" layout="block">
@@ -82,10 +82,11 @@
                                 style="background: silver; font-size: 18pt; width:80%; height:90%; margin-left: 2.5%; margin-top:5.25%;"
                                 value="Убрать текущие точки"/>
                     </h:form>
-                    <!--    <input type="button" id = "cle" value="Убрать текущие точки" > </input> -->
                 </center>
             </h:panelGroup>
         </h:panelGroup>
+        <script type="text/javascript" src="MainPageScripts.js">
+        </script>
     </h:body>
 </f:view>
 </html>

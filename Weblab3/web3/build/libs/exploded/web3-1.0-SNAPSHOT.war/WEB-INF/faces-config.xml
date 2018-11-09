@@ -4,24 +4,6 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-    <navigation-rule>
-        <from-view-id>/StartPage.xhtml</from-view-id>
-        <navigation-case>
-            <description>Переход к главной странице</description>
-            <from-outcome>toMain</from-outcome>
-            <to-view-id>/MainPage.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/MainPage.xhtml</from-view-id>
-        <navigation-case>
-            <description>Переход к стартовой странице</description>
-            <from-outcome>toStart</from-outcome>
-            <to-view-id>/StartPage.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
    <managed-bean eager="true">
         <managed-bean-name>serverTime</managed-bean-name>
         <managed-bean-class>org.rogisa.beans.ServerTimeBean</managed-bean-class>
