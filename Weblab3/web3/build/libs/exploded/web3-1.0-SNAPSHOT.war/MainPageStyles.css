@@ -41,7 +41,7 @@ body {
 #Area {
     float: left;
     width: 40%;
-    height: 40%;
+    height: 45%;
     margin-top: 2.5%;
     margin-left: 2.5%;
 }
@@ -60,7 +60,6 @@ body {
     height: 25%;
     margin: 1%;
     margin-left: 2.5%;
-    margin-bottom: 2.5%;
     text-align: center;
     font-size: 14pt;
 }
