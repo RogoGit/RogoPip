@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+    <h:head>
+        <link href="MainPageStyles.css" rel="stylesheet"/>
+        <title> LabWork Main Page </title>
+    </h:head>
+    <h:body>
+        <h:panelGroup styleClass="BackPanel" layout="block">
+            <h:panelGroup styleClass="MainPanels" id="PageHeader" layout="block">
+                <h:form>
+                    <h:commandButton
+                            style="background: silver; width: 12%; height: 40px; font-size: 18pt; float: left; margin-left: 2.5%; margin-top:1.25%  "
+                            value="На главную" action="toStart"/>
+                    <center style="position: center">
+                        Проверка попадания
+                    </center>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup styleClass="MainPanels" id="Area" layout="block">
+                <center>
+                <svg width="380" height="420" onclick="makeNewDot()">
+                <circle r="90" cx="190" cy="210" fill="silver"/>
+                    <polygon points="190,210 190,30 370,30 370,210" fill="cornflowerblue"/>
+                    <polygon points="190,210 190,390 370,390 370,210" fill="cornflowerblue"/>
+                <polygon points="190,210 190,300 370,210" fill="silver"/>
+                <polygon points="190,210 190,390 100,390 100,210" fill="silver"/>
+                <line x1="190" x2="190" y1="0" y2="420" stroke="black" stroke-width="3"/>
+                <line x1="0" x2="380" y1="210" y2="210" stroke="black" stroke-width="3"/>
+                    <ui:repeat value="#{dotsColl.areaDots}" var="dot">
+                    <circle r="3" cx="#{190 + dot.kx*180*dot.rad}" cy="#{(210 + -180*dot.ky*dot.rad)}" fill="#{dot.color}" />
+                    </ui:repeat>
+                </svg>
+                </center>
+            </h:panelGroup>
+            <h:panelGroup styleClass="MainPanels" id="CheckTable" layout="block">
+                <center> Таблица проверок</center>
+                <br/>
+
+                <h:dataTable id="checks" class = "table" value="#{dotsColl.areaDots}" var="dot" styleClass="table">
+                    <h:column>
+                        <f:facet name="header"> Координата Х </f:facet>
+                            <h:outputText value="#{dot.kx}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> Координата Y </f:facet>
+                           <h:outputText value=" #{dot.ky}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> Радиус </f:facet>
+                            <h:outputText value="#{dot.rad}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> Результат </f:facet>
+                            <h:outputText value="#{dot.res}"/>
+                    </h:column>
+                </h:dataTable>
+
+            </h:panelGroup>
+            <h:panelGroup styleClass="MainPanels" id="Fields" layout="block">
+                <h:form id="fieldsForm">
+                    <br/> Введите R:
+                    <h:panelGroup styleClass="tooltip" layout="block">
+                        <h:inputText value="#{dotMake.rad}" maxlength="30" onchange="resizeArea()" styleClass="enter" id ="rad" style="width:170px;"> </h:inputText>
+                        <span class="tooltiptext">Введите число от 1 до 4</span>
+                    </h:panelGroup>
+                    <br/>
+                    <br/>
+                    Введите Y:
+                    <h:panelGroup styleClass="tooltip" layout="block">
+                        <h:inputText value="#{dotMake.ky}" maxlength="30" styleClass="enter" style="width:170px;"> </h:inputText>
+                        <span class="tooltiptext">Введите число от -3 до 3</span>
+                    </h:panelGroup>
+                    <br/>
+                    <br/> Выберите X:
+                    <p:spinner id="kx" value="#{dotMake.kx}" stepFactor="0.5" min="-4" max="4" size="12"/>
+                    <br/> <br/>
+                    <h:commandButton
+                            style="background: silver; font-size: 14pt; width:50%; height:90%; margin-left: 2.5%;"
+                            action="#{dotsColl.addDot( dotMake.kx, dotMake.ky, dotMake.rad)}"
+                            value="Проверить">
+                    </h:commandButton>
+                    <br/> <br/>
+                    <h:outputLabel id="errors" styleClass="hidden" style="width:90%;"/>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup styleClass="MainPanels" id="ClearHist" layout="block">
+                <center>
+                    <h:form>
+                        <h:commandButton
+                                style="background: silver; font-size: 18pt; width:80%; height:90%; margin-left: 2.5%; margin-top:5.25%;"
+                                value="Убрать текущие точки"/>
+                    </h:form>
+                </center>
+            </h:panelGroup>
+        </h:panelGroup>
+        <script type="text/javascript" src="MainPageScripts.js">
+        </script>
+    </h:body>
+</f:view>
+</html>
