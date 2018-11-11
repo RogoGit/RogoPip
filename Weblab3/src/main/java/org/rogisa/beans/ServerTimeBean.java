@@ -1,4 +1,4 @@
-package main.java.org.rogisa.beans;
+package org.rogisa.beans;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package main.java.org.rogisa.beans;
+package org.rogisa.beans;
 
 import java.io.Serializable;
 
@@ -7,9 +7,9 @@ public class DotMaker implements Serializable {
     private double ky;
     private double rad;
     private String color;
-    private String res;
+    private boolean res;
 
-    public DotMaker(double kx, double ky, double rad, String color, String res) {
+    public DotMaker(double kx, double ky, double rad, String color, boolean res) {
         this.kx = kx;
         this.ky = ky;
         this.rad = rad;
@@ -53,28 +53,32 @@ public class DotMaker implements Serializable {
         this.rad = rad;
     }
 
-    public String getRes() {
+    public boolean isRes() {
         return res;
     }
 
-    public void setRes(String res) {
+    public void setRes(boolean res) {
         this.res = res;
     }
 
     public void areaCheck() {
+        updateRes();
 
-        boolean ifHit =  (this.kx <= 0 && this.ky <= 0 && -this.kx <= this.rad/2 && -this.ky <= this.rad) ||
-                        (this.kx <= 0 && this.ky >= 0 && (this.kx * this.kx + this.ky * this.ky) <= (this.rad * this.rad)/4) ||
-                        (this.kx >= 0 && this.ky <= 0 && this.ky>=(-this.kx-this.rad)); // FIX IT!!!
+        updateColor();
+    }
 
-        if (ifHit) {
-            this.color = "green";
-            this.res = "Попадает";
+    private void updateColor() {
+        if (res) {
+            color = "green";
         } else {
-            this.color = "red";
-            this.res = "Не попадает";
+            color = "red";
         }
+    }
 
+    private void updateRes() {
+        res = (this.kx <= 0 && this.ky <= 0 && Math.abs(this.kx) <= this.rad / 2 && Math.abs(this.ky) <= this.rad) ||
+                (this.kx <= 0 && this.ky >= 0 && (this.kx * this.kx + this.ky * this.ky) <= (this.rad * this.rad)) ||
+                (this.kx >= 0 && this.ky <= 0 && this.ky >= (2 * this.kx - this.rad / 2));
     }
 
 }

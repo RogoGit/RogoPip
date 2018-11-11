@@ -24,7 +24,6 @@
                 </h:form>
             </h:panelGroup>
             <h:panelGroup styleClass="MainPanels" id="Area" layout="block">
-                <center>
                 <svg width="380" height="420" onclick="makeNewDot()">
                 <circle r="90" cx="190" cy="210" fill="silver"/>
                     <polygon points="190,210 190,30 370,30 370,210" fill="cornflowerblue"/>
@@ -37,7 +36,6 @@
                     <circle r="3" cx="#{190 + dot.kx*180*dot.rad}" cy="#{(210 + -180*dot.ky*dot.rad)}" fill="#{dot.color}" />
                     </ui:repeat>
                 </svg>
-                </center>
             </h:panelGroup>
             <h:panelGroup styleClass="MainPanels" id="CheckTable" layout="block">
                 <center> Таблица проверок</center>

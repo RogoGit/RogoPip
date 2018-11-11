@@ -1,4 +1,4 @@
-package main.java.org.rogisa.beans;
+package org.rogisa.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
